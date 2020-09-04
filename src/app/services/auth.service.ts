@@ -4,6 +4,7 @@ import { of, BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
+import { User } from '../models/User';
 
 const getMe = gql`
   {
@@ -12,15 +13,22 @@ const getMe = gql`
     }
   }
 `;
-const register = gql`
-  mutation {
+const registerUser = gql`
+  mutation registerUser(
+    $firstName: String!
+    $lastName: String!
+    $username: String!
+    $password: String!
+    $email: String!
+    $role: String!
+  ) {
     registerUser(
-      firstName: "Bob"
-      lastName: "Parsons"
-      username: "bparsodfndfsfewtds33"
-      email: "deadstylesdfdfbp@gwtdfmail.com"
-      password: "hatereact"
-      role: "user"
+      firstName: $firstName
+      lastName: $lastName
+      username: $username
+      email: $email
+      password: $password
+      role: $role
     ) {
       user {
         id
@@ -42,53 +50,27 @@ const loginUser = gql`
   providedIn: 'root',
 })
 export class AuthService {
-  public userAuthenticated: Observable<any>;
-  private token: string;
-  data: Observable<any>;
-  public stringVar = new BehaviorSubject<string>(null);
-  me: any;
-  public stringVar$ = this.stringVar.asObservable();
-  // loading: boolean;
-
-  // data: Observable<any>;
-  // token: Observable<any>;
-  // currentUser: any;
-  // private profileObs$: BehaviorSubject<Result> = new BehaviorSubject(null);
-  public result: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // // private token: BehaviorSubject<string> = new BehaviorSubject(null);
-  // public usersChanged = this.result.asObservable();
-  private querySubscription: any;
+  private userAuthenticated: Observable<boolean> = of(false);
 
   constructor(public apollo: Apollo) {
-    console.log('Services started');
-
-    //Without subscription
-    // this.querySubscription = this.apollo
-    //   .watchQuery<any>({
-    //     query: CurrentUserForProfile,
-    //   })
-    //   .valueChanges.subscribe(({ data, loading }) => {
-    //     this.loading = loading;
-    //     this.result = data['getUsers'][0]['username'];
-    //     console.log(data['getUsers'][0]['username']);
-    //   });
-
-    // WIth subscription
-
-    // this.data = this.apollo
-    //   .watchQuery({ query: CurrentUserForProfile })
-    //   .valueChanges.pipe(map(({ data }) => data['getUsers'][0]['username']));
-    this.data = this.apollo
+    this.userAuthenticated = this.apollo
       .watchQuery({ query: getMe })
-      .valueChanges.pipe(map(({ data }) => data));
+      .valueChanges.pipe(
+        map(({ data }) => {
+          if (data === null || data['me'] === null) {
+            return false;
+          } else {
+            return data['me']['id'] > 0 ? true : false;
+          }
+        })
+      );
   }
 
-  public isAuthenticated(): Observable<any> {
-    return this.data;
+  public isAuthenticated(): Observable<boolean> {
+    return this.userAuthenticated;
   }
 
   public loginUser(username: string, password: string): any {
-    // this.userAuthenticated = true;
     this.apollo
       .mutate({
         mutation: loginUser,
@@ -99,13 +81,9 @@ export class AuthService {
       })
       .subscribe(
         ({ data }) => {
-          console.log('got data', data);
-          this.token = data['loginUser']['token'];
-          localStorage.setItem('token', this.token);
-          // this.userId = data['loginUser']['id'];
-          // console.log(this.userId);
-          console.log(localStorage.getItem('token'));
-
+          const token = data['loginUser']['token'];
+          localStorage.setItem('jobkikToken', token);
+          this.userAuthenticated = of(true);
           return data;
         },
         (error) => {
@@ -114,50 +92,34 @@ export class AuthService {
       );
   }
 
-  getMe(): any {
-    console.log('Get me started');
-
-    // this.querySubscription = this.apollo
-    //   .watchQuery<any>({
-    //     query: getMe,
-    //   })
-    //   .valueChanges.subscribe(({ data, loading }) => {
-    //     console.log(data);
-    //     this.result = data.me.id;
-    //     return this.result;
-    //   });
+  public registerUser(user: User): any {
+    this.apollo
+      .mutate({
+        mutation: registerUser,
+        variables: {
+          username: user.username,
+          password: user.password,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role,
+        },
+      })
+      .subscribe(
+        ({ data }) => {
+          const token = data['registerUser']['token'];
+          localStorage.setItem('jobkikToken', token);
+          this.userAuthenticated = of(true);
+          return data;
+        },
+        (error) => {
+          console.log('there was an error sending the query', error);
+        }
+      );
   }
 
-  getUser(): any {
-    // getUser(): Observable<Result> {
-    // return this.result.asObservable();
-    // this.apollo
-    //   .mutate({
-    //     mutation: register,
-    //     // variables: {
-    //     //   repoFullName: 'apollographql/apollo-client'
-    //     // }
-    //   })
-    //   .subscribe(
-    //     ({ data }) => {
-    //       console.log('got data', data['registerUser']['token']);
-    //       return data;
-    //     },
-    //     (error) => {
-    //       console.log('there was an error sending the query', error);
-    //     }
-    //   );
+  public logout(): void {
+    this.userAuthenticated = of(false);
+    localStorage.setItem('jobkikToken', null);
   }
-
-  // getToken(): Observable<string> {
-  //   return this.token;
-  // }
-
-  // getResults(): Observable<Result> {
-  //   return this.data;
-  // }
-
-  // showUser() {
-  //   console.log(this.currentUser);
-  // }
 }

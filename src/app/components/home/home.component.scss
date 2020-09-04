@@ -1,0 +1,28 @@
+section {
+  box-sizing: border-box;
+  overflow-y: hidden;
+  width: 100vw;
+  height: auto;
+  color: aliceblue;
+  position: fixed;
+}
+
+#cover img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+}
+
+div {
+  background: #16161650;
+  top: 40%;
+  left: 50%;
+  position: fixed;
+  transform: translate(-50%, 50%);
+  padding: 2rem;
+  h1 {
+    color: #ecead7;
+  }
+}

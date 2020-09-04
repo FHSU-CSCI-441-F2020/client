@@ -25,14 +25,21 @@ export function provideApollo(httpLink: HttpLink) {
   }));
 
   // Get the authentication token from local storage if it exists
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('jobkikToken');
   console.log(token);
 
-  const auth = setContext((operation, context) => ({
-    headers: {
-      'x-token': `${token}`,
-    },
-  }));
+  let auth;
+  if (token !== 'null') {
+    auth = setContext((operation, context) => ({
+      headers: {
+        'x-token': `${token}`,
+      },
+    }));
+  } else {
+    console.log('No auth');
+
+    auth = setContext((operation, context) => ({}));
+  }
 
   const link = ApolloLink.from([basic, auth, httpLink.create({ uri })]);
   const cache = new InMemoryCache();

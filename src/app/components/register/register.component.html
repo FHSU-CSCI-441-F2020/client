@@ -1,0 +1,35 @@
+<form class="form" (ngSubmit)="onSubmit()">
+  <input
+    type="text"
+    name="user.firstName"
+    [(ngModel)]="user.firstName"
+    placeholder="First Name"
+  />
+  <input
+    type="text"
+    name="user.lastName"
+    [(ngModel)]="user.lastName"
+    placeholder="Last Name"
+  />
+  <input
+    type="text"
+    name="user.username"
+    [(ngModel)]="user.username"
+    placeholder="Username"
+  />
+  <input
+    type="email"
+    name="user.email"
+    [(ngModel)]="user.email"
+    placeholder="Email Address"
+  />
+  <input
+    type="password"
+    name="user.password"
+    [(ngModel)]="user.password"
+    placeholder="Password"
+  />
+  <input type="submit" value="Submit" class="btn" />
+</form>
+
+<button [routerLink]="['/login']">Already registered? Login</button>
