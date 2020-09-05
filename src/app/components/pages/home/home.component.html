@@ -2,7 +2,11 @@
   <figure id="cover">
     <video src="../../../assets/home_cover.mp4" muted autoplay loop></video>
   </figure>
-  <div>
+  <!-- If loading is true, display loading module -->
+  <div *ngIf="loading" class="loading">
+    <app-loading></app-loading>
+  </div>
+  <div class="title">
     <h1>This is our home page</h1>
   </div>
 </section>

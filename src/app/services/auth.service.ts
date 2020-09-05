@@ -5,7 +5,11 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
 import { User } from '../models/User';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
+/**
+ * Query for getting current user
+ */
 const getMe = gql`
   {
     me {
@@ -13,6 +17,9 @@ const getMe = gql`
     }
   }
 `;
+/**
+ * Mutation for registering user
+ */
 const registerUser = gql`
   mutation registerUser(
     $firstName: String!
@@ -37,7 +44,9 @@ const registerUser = gql`
     }
   }
 `;
-
+/**
+ * Query for getting current user
+ */
 const loginUser = gql`
   mutation loginUser($username: String!, $password: String!) {
     loginUser(login: $username, password: $password) {
@@ -50,49 +59,116 @@ const loginUser = gql`
   providedIn: 'root',
 })
 export class AuthService {
-  private userAuthenticated: Observable<boolean> = of(false);
+  private userAuthenticated: BehaviorSubject<boolean>;
+  public loading: BehaviorSubject<boolean>;
 
-  constructor(public apollo: Apollo) {
-    this.userAuthenticated = this.apollo
-      .watchQuery({ query: getMe })
-      .valueChanges.pipe(
-        map(({ data }) => {
-          if (data === null || data['me'] === null) {
-            return false;
-          } else {
-            return data['me']['id'] > 0 ? true : false;
-          }
-        })
-      );
+  constructor(private apollo: Apollo, private router: Router) {
+    // Initialize the observable variables with default values
+    this.userAuthenticated = new BehaviorSubject<boolean>(false);
+    this.loading = new BehaviorSubject<boolean>(true);
+
+    /**
+     * This is the 1st type of query, use when a observable is not needed/desired
+     */
+
+    // this.checkMe = this.apollo.watchQuery({ query: getMe }).valueChanges.pipe(
+    //   map(({ data }) => {
+    //     console.log('me is working', data);
+
+    //     if (data === null || data['me'] === null) {
+    //       return false;
+    //     } else {
+    //       return data['me']['id'] > 0 ? true : false;
+    //     }
+    //   })
+    // );
+
+    /**
+     * This is the 2nd type of query, use when a observable is needed/desired
+     */
+    // Query the current user to see if they are authenticated. If true, set
+    // Authenticated to true and stop loading
+    this.apollo
+      .watchQuery<any>({
+        query: getMe,
+      })
+      .valueChanges.subscribe(({ data, loading }) => {
+        console.log(data, loading);
+        // If no data or does not include me data, set authentiation to false
+        if (data === null || data['me'] === null) {
+          this.userAuthenticated.next(false);
+          this.loading.next(false);
+        } else if (data['me']['id'] > 0) {
+          // If data includes a user id, it is authenticated
+          this.userAuthenticated.next(true);
+          this.loading.next(false);
+        } else {
+          // If data id isn't included, set to false
+          this.userAuthenticated.next(false);
+          this.loading.next(false);
+        }
+      });
   }
 
+  /**
+   * Return an observable to watch if user is authenticated
+   */
   public isAuthenticated(): Observable<boolean> {
-    return this.userAuthenticated;
+    return this.userAuthenticated.asObservable();
+  }
+  /**
+   * Return an observable to indicate if something is loading
+   */
+  public isLoaded(): Observable<boolean> {
+    return this.loading.asObservable();
   }
 
-  public loginUser(username: string, password: string): any {
+  /**
+   * Login user using graphql mutation
+   *
+   * @param login User selected username or email
+   * @param password User inputted password
+   */
+  public loginUser(login: string, password: string): void {
+    // Set loading to true
+    this.loading.next(true);
+    // Start mutation query
     this.apollo
       .mutate({
         mutation: loginUser,
         variables: {
-          username: username,
+          username: login,
           password: password,
         },
       })
       .subscribe(
         ({ data }) => {
+          // Set token to returned data value
           const token = data['loginUser']['token'];
+          // Store token to local storage
           localStorage.setItem('jobkikToken', token);
-          this.userAuthenticated = of(true);
-          return data;
+          // Set authentication to true
+          this.userAuthenticated.next(true);
+          // Return to home page
+          this.router.navigate(['/']);
         },
         (error) => {
           console.log('there was an error sending the query', error);
         }
       );
+    // Stop loading
+    this.loading.next(false);
   }
 
-  public registerUser(user: User): any {
+  /**
+   * Submit user for registration
+   *
+   * @param login User selected username or email
+   * @param password User inputted password
+   */
+  public registerUser(user: User): void {
+    // Set loading to true
+    this.loading.next(true);
     this.apollo
       .mutate({
         mutation: registerUser,
@@ -107,10 +183,14 @@ export class AuthService {
       })
       .subscribe(
         ({ data }) => {
+          // Set token to returned data value
           const token = data['registerUser']['token'];
+          // Store token to local storage
           localStorage.setItem('jobkikToken', token);
-          this.userAuthenticated = of(true);
-          return data;
+          // Set authentication to true
+          this.userAuthenticated.next(true);
+          // Return to home page
+          this.router.navigate(['/']);
         },
         (error) => {
           console.log('there was an error sending the query', error);
@@ -118,8 +198,16 @@ export class AuthService {
       );
   }
 
+  /**
+   * Log user out of application
+   *
+   */
   public logout(): void {
-    this.userAuthenticated = of(false);
+    // Set authentication to false
+    this.userAuthenticated.next(false);
+    // Remove token from storage
     localStorage.setItem('jobkikToken', null);
+    // Return to home page
+    this.router.navigate(['/']);
   }
 }

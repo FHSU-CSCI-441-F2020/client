@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {
-    console.log(this.username, this.password);
+  /**
+   * Submits user to be logged in
+   */
+  onSubmit(): void {
     this.authService.loginUser(this.username, this.password);
   }
 }

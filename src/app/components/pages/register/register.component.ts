@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/User';
+import { AuthService } from '../../../services/auth.service';
+import { User } from '../../../models/User';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {
+  /**
+   *  Submits user to be registered
+   */
+  onSubmit(): void {
     this.user.role = 'user';
     this.authService.registerUser(this.user);
   }
