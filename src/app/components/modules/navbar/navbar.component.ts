@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { UserService } from '../../../services/user.service';
+import { User } from '../../../models/User';
 
 @Component({
   selector: 'app-navbar',
@@ -8,8 +10,12 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   public userLoggedIn: boolean;
+  public activeUser: User;
 
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     // Subscribe to watch for any updated to the users authentication status

@@ -16,6 +16,7 @@ import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { LoginComponent } from './components/modules/login/login.component';
 import { RegisterComponent } from './components/pages/register/register.component';
 import { LoadingComponent } from './components/modules/loading/loading.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LoadingComponent } from './components/modules/loading/loading.component
     LoginComponent,
     RegisterComponent,
     LoadingComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
