@@ -13,8 +13,10 @@ export class RegisterComponent implements OnInit {
     lastName: '',
     username: '',
     email: '',
+    phoneNumber: '',
     password: '',
-    role: '',
+    role: 'user',
+    completedProfile: false,
   };
 
   constructor(private authService: AuthService) {}
@@ -25,7 +27,6 @@ export class RegisterComponent implements OnInit {
    *  Submits user to be registered
    */
   onSubmit(): void {
-    this.user.role = 'user';
     this.authService.registerUser(this.user);
   }
 }

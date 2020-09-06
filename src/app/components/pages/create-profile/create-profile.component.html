@@ -1,0 +1,69 @@
+<form class="form" (ngSubmit)="onSubmit()">
+  <input
+    type="text"
+    name="userProfile.address1"
+    [(ngModel)]="userProfile.address1"
+    placeholder="Address"
+  />
+  <input
+    type="text"
+    name="userProfile.address2"
+    [(ngModel)]="userProfile.address2"
+    placeholder="Address"
+  />
+  <input
+    type="text"
+    name="userProfile.city"
+    [(ngModel)]="userProfile.city"
+    placeholder="City"
+  />
+  <input
+    type="text"
+    name="userProfile.state"
+    [(ngModel)]="userProfile.state"
+    placeholder="State"
+  />
+  <input
+    type="number"
+    name="userProfile.zip"
+    [(ngModel)]="userProfile.zip"
+    placeholder="Zip Code"
+  />
+  <input
+    type="text"
+    name="userProfile.country"
+    [(ngModel)]="userProfile.country"
+    placeholder="Country"
+  />
+  <input
+    type="textarea"
+    name="userProfile.statement"
+    [(ngModel)]="userProfile.statement"
+    placeholder="Introductory Statement"
+  />
+  <input
+    type="text"
+    name="userProfile.education"
+    [(ngModel)]="userProfile.education"
+    placeholder="Education"
+  />
+  <input
+    type="text"
+    name="userProfile.workExperience"
+    [(ngModel)]="userProfile.workExperience"
+    placeholder="Work Experience"
+  />
+  <input
+    type="text"
+    name="userProfile.lookingFor"
+    [(ngModel)]="userProfile.lookingFor"
+    placeholder="Positions interested in"
+  />
+  <input
+    type="text"
+    name="userProfile.active"
+    [(ngModel)]="userProfile.active"
+    placeholder="Actively Seeking Employment"
+  />
+  <input type="submit" value="Submit" class="btn" />
+</form>
