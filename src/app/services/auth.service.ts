@@ -77,7 +77,7 @@ const loginUser = gql`
 })
 export class AuthService {
   private userAuthenticated: BehaviorSubject<boolean>;
-  private loading: BehaviorSubject<boolean>;
+  public loading: BehaviorSubject<boolean>;
   private user: User;
 
   constructor(
@@ -117,7 +117,7 @@ export class AuthService {
       .valueChanges.subscribe(({ data, loading }) => {
         console.log(data, loading);
         // If no data or does not include me data, set authentiation to false
-        if (data === null || data['me'] === null) {
+        if (data === null || data.me === null) {
           // Token is invalid, remove from local storage
           if (localStorage.getItem('jobkikToken') !== null) {
             console.log('Clearing invalid token');
@@ -126,11 +126,14 @@ export class AuthService {
           }
           this.userAuthenticated.next(false);
           this.loading.next(false);
-        } else if (data['me']['id'] > 0) {
+        } else if (data.me.id > 0) {
           // If data includes a user id, it is authenticated
           this.userAuthenticated.next(true);
           this.loading.next(false);
           this.userService.setUser(data.me);
+          if (!data.me.completedProfile) {
+            this.router.navigate(['/createprofile']);
+          }
         } else {
           // If data id isn't included, set to false
           this.userAuthenticated.next(false);
@@ -182,12 +185,12 @@ export class AuthService {
           this.loading.next(false);
           // Set authentication to true
           this.userAuthenticated.next(true);
-          if (this.user.completedProfile === true) {
+          if (this.user.completedProfile) {
             // Return to home page
             this.router.navigate(['/']);
           } else {
-            // Return to home page
-            this.router.navigate(['/profile']);
+            // Send to createprofile
+            this.router.navigate(['/createprofile']);
           }
         },
         (error) => {

@@ -1,1 +1,31 @@
-<p>profile works!</p>
+<section>
+  <div>
+    <h1>{{ user.firstName }} {{ user.lastName }}'s Profile</h1>
+    <p>{{ profile.statement }}</p>
+    <div *ngIf="profile.active">
+      <h4>
+        Open to
+        <span *ngFor="let lookingFor of profile.lookingFor">
+          {{ lookingFor }}</span
+        >
+      </h4>
+    </div>
+  </div>
+  <div>
+    <h2>Education</h2>
+    <p *ngFor="let education of profile.education">{{ education }}</p>
+    <h2>Work Experience</h2>
+    <p *ngFor="let workExperience of profile.workExperience">
+      {{ workExperience }}
+    </p>
+    <h2>Skills</h2>
+    <p *ngFor="let skills of profile.skills">{{ skills }}</p>
+  </div>
+  <div>
+    <h2>Current Location</h2>
+    <p>{{ profile.address1 }}</p>
+    <p *ngIf="profile.address2 !== null">{{ profile.address2 }}</p>
+    <p>{{ profile.city }}, {{ profile.state }} {{ profile.zip }}</p>
+    <p>{{ user.phoneNumber }} | {{ user.email }}</p>
+  </div>
+</section>
