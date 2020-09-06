@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/" *ngIf="!userLoggedIn">JobKik</a>
-  <a class="navbar-brand" href="/" *ngIf="userLoggedIn">JobKikker</a>
+  <a class="navbar-brand" [routerLink]="['/']" *ngIf="!userLoggedIn">JobKik</a>
+  <a class="navbar-brand" [routerLink]="['/']" *ngIf="userLoggedIn"
+    >JobKikker</a
+  >
   <button
     class="navbar-toggler"
     type="button"
@@ -21,6 +23,9 @@
       </li>
       <li class="nav-item" *ngIf="!userLoggedIn">
         <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="userLoggedIn">
+        <a class="nav-link" [routerLink]="['/profile']">Profile</a>
       </li>
       <li class="nav-item" *ngIf="userLoggedIn">
         <a class="nav-link" (click)="this.authService.logout()">Logout</a>
