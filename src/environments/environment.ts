@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  uri: 'http://localhost:8000/graphql',
-  // uri: 'https://jobkik-server.herokuapp.com/graphql',
+  // uri: 'http://localhost:8000/graphql',
+  uri: 'https://jobkik-server.herokuapp.com/graphql',
 };
 
 /*
