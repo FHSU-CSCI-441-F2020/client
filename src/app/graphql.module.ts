@@ -29,16 +29,17 @@ export function provideApollo(httpLink: HttpLink) {
   console.log(token);
 
   let auth;
-  if (token !== 'null') {
+  if (token === 'null' || token === null) {
+    console.log('No auth');
+    auth = setContext((operation, context) => ({}));
+  } else {
+    console.log('Token found');
+
     auth = setContext((operation, context) => ({
       headers: {
         'x-token': `${token}`,
       },
     }));
-  } else {
-    console.log('No auth');
-
-    auth = setContext((operation, context) => ({}));
   }
 
   const link = ApolloLink.from([basic, auth, httpLink.create({ uri })]);
