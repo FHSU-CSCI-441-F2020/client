@@ -5,8 +5,8 @@
 export interface UserProfile {
   id?: string;
   statement: string;
-  education: string[];
-  workExperience: string[];
+  education: JSON[];
+  workExperience: JSON[];
   lookingFor: string[];
   skills: string[];
   active: boolean;
