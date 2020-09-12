@@ -100,10 +100,10 @@ export class UserService {
   private defaultProfile: UserProfile = {
     userId: '',
     statement: '',
-    education: [''],
-    workExperience: [''],
-    lookingFor: [''],
-    skills: [''],
+    education: [],
+    workExperience: [],
+    lookingFor: [],
+    skills: [],
     active: false,
     address1: '',
     address2: '',
@@ -122,19 +122,11 @@ export class UserService {
 
   setUser(user: User): void {
     this.user.next({ ...user });
-    console.log(this.user);
   }
-  // setUser(user: User): void {
-  //   this.user = { ...user };
-  // }
 
   getUser(): Observable<User> {
-    console.log(this.user);
     return this.user.asObservable();
   }
-  // getUser(): User {
-  //   return this.user;
-  // }
 
   clearUser(): void {
     this.user = null;

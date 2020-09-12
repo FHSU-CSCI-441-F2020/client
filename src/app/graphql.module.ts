@@ -9,13 +9,6 @@ import { environment } from '../environments/environment';
 // const uri = 'https://jobkik-server.herokuapp.com/graphql';
 const uri = environment.uri;
 // const uri = 'http://localhost:8000/graphql';
-// // const uri = 'https://o5x5jzoo7z.sse.codesandbox.io/graphql';
-// export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
-//   return {
-//     link: httpLink.create({ uri }),
-//     cache: new InMemoryCache(),
-//   };
-// }
 
 export function provideApollo(httpLink: HttpLink) {
   const basic = setContext((operation, context) => ({
@@ -26,15 +19,11 @@ export function provideApollo(httpLink: HttpLink) {
 
   // Get the authentication token from local storage if it exists
   const token = localStorage.getItem('jobkikToken');
-  console.log(token);
 
   let auth;
   if (token === 'null' || token === null) {
-    console.log('No auth');
     auth = setContext((operation, context) => ({}));
   } else {
-    console.log('Token found');
-
     auth = setContext((operation, context) => ({
       headers: {
         'x-token': `${token}`,

@@ -27,6 +27,9 @@
       <li class="nav-item" *ngIf="userLoggedIn">
         <a class="nav-link" [routerLink]="['/profile']">Profile</a>
       </li>
+      <li class="nav-item" *ngIf="userLoggedIn && !user.completedProfile">
+        <a class="nav-link" [routerLink]="['/createprofile']">Create Profile</a>
+      </li>
       <li class="nav-item" *ngIf="userLoggedIn">
         <a class="nav-link" (click)="this.authService.logout()">Logout</a>
       </li>

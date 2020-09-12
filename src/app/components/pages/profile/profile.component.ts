@@ -16,11 +16,11 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser().subscribe((user) => {
       this.user = { ...user };
-    });
-    // this.user = this.userService.getUser();
-    this.userService.getUserProfile().subscribe((profile) => {
-      this.profile = { ...profile };
-      console.log(profile.address2);
+      if (parseInt(this.user.id) > 0) {
+        this.userService.getUserProfile().subscribe((profile) => {
+          this.profile = { ...profile };
+        });
+      }
     });
   }
 }

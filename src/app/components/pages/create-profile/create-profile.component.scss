@@ -1,0 +1,74 @@
+form {
+  min-height: 100vh;
+}
+
+h5 {
+  margin: 1rem auto
+}
+
+section {
+  max-width: 400px;
+  height: 100%;
+  margin: 5rem auto;
+  padding: 2rem;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+
+  .btn {
+    width: 100px
+  }
+}
+
+.progress-container {
+  width: 100%;
+  margin-bottom: 1rem;
+
+  .progress-wrapper {
+    width: 100%;
+    height: 1rem;
+    height: 2px;
+    background: rgb(206, 206, 206);
+    border-radius: .25rem;
+
+    .progress {
+      height: 2px;
+      background: blue;
+      width: 0px
+    }
+  }
+}
+
+.btn-add {
+  margin: 1rem 0 1rem 0;
+}
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+  margin: .5rem 0;
+
+  background: #e2e2e2;
+
+  .skill {
+    padding: .5rem;
+  }
+
+  .delete {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+// .skill-row:nth-child(odd) {
+//   background: #e2e2e2
+// }
+
+// .skill-row:nth-child(even) {
+//   background: #f0f0f0
+// }
