@@ -1,69 +1,464 @@
 <form class="form" (ngSubmit)="onSubmit()">
-  <input
-    type="text"
-    name="userProfile.address1"
-    [(ngModel)]="userProfile.address1"
-    placeholder="Address"
-  />
-  <input
-    type="text"
-    name="userProfile.address2"
-    [(ngModel)]="userProfile.address2"
-    placeholder="Address"
-  />
-  <input
-    type="text"
-    name="userProfile.city"
-    [(ngModel)]="userProfile.city"
-    placeholder="City"
-  />
-  <input
-    type="text"
-    name="userProfile.state"
-    [(ngModel)]="userProfile.state"
-    placeholder="State"
-  />
-  <input
-    type="number"
-    name="userProfile.zip"
-    [(ngModel)]="userProfile.zip"
-    placeholder="Zip Code"
-  />
-  <input
-    type="text"
-    name="userProfile.country"
-    [(ngModel)]="userProfile.country"
-    placeholder="Country"
-  />
-  <input
-    type="textarea"
-    name="userProfile.statement"
-    [(ngModel)]="userProfile.statement"
-    placeholder="Introductory Statement"
-  />
-  <input
-    type="text"
-    name="userProfile.education"
-    [(ngModel)]="userProfile.education"
-    placeholder="Education"
-  />
-  <input
-    type="text"
-    name="userProfile.workExperience"
-    [(ngModel)]="userProfile.workExperience"
-    placeholder="Work Experience"
-  />
-  <input
-    type="text"
-    name="userProfile.lookingFor"
-    [(ngModel)]="userProfile.lookingFor"
-    placeholder="Positions interested in"
-  />
-  <input
-    type="text"
-    name="userProfile.active"
-    [(ngModel)]="userProfile.active"
-    placeholder="Actively Seeking Employment"
-  />
-  <input type="submit" value="Submit" class="btn" />
+  <section [ngSwitch]="pagePosition" class="shadow">
+    <div class="progress-container">
+      <h4 class="text-center">Form Completion Steps</h4>
+      <div class="progress-wrapper">
+        <div id="progress-bar" class="progress"></div>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="0">
+      <div class="form-group">
+        <label for="address1">Address Line 1</label>
+        <input
+          type="text"
+          id="address1"
+          name="userProfile.address1"
+          [(ngModel)]="userProfile.address1"
+          placeholder="Please enter address"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="address1">Address Line 2</label>
+        <input
+          type="text"
+          id="address1"
+          name="userProfile.address2"
+          [(ngModel)]="userProfile.address2"
+          placeholder="Optional Address"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          type="text"
+          id="city"
+          name="userProfile.city"
+          [(ngModel)]="userProfile.city"
+          placeholder="Please enter your city"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input
+          type="text"
+          id="state"
+          name="userProfile.state"
+          [(ngModel)]="userProfile.state"
+          placeholder="Enter State"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="address1">Zip Code</label>
+        <input
+          type="text"
+          id="address1"
+          name="userProfile.address2"
+          [(ngModel)]="userProfile.address2"
+          placeholder="Enter Zip Code"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input
+          type="text"
+          id="country"
+          name="userProfile.country"
+          [(ngModel)]="userProfile.country"
+          placeholder="Enter Country"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <!-- Area for displaying about area -->
+    <div *ngSwitchCase="1">
+      <div class="form-group">
+        <label for="statement">Introductory Statement</label>
+        <textarea
+          id="statement"
+          type="textarea"
+          name="userProfile.statement"
+          [(ngModel)]="userProfile.statement"
+          placeholder="What do you want people to first know about you?"
+          class="form-control"
+        ></textarea>
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="active"
+          name="userProfile.active"
+          [(ngModel)]="userProfile.active"
+          class="form-check-input"
+        />
+        <label class="form-check-label" for="active"
+          >Open to Opportunities</label
+        >
+      </div>
+      <div class="form-check">
+        <h5>Types of Positions Interested In</h5>
+        <input
+          type="checkbox"
+          id="lookingFor-ft"
+          class="form-check-input"
+          value="Full Time"
+          (change)="setLookingFor($event)"
+        />
+        <label class="form-check-label" for="lookingFor-ft">Full Time</label>
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="lookingFor-pt"
+          class="form-check-input"
+          value="Part Time"
+          (change)="setLookingFor($event)"
+        />
+        <label class="form-check-label" for="lookingFor-pt">Part Time</label>
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="lookingFor-contract"
+          class="form-check-input"
+          value="Contract"
+          (change)="setLookingFor($event)"
+        />
+        <label class="form-check-label" for="lookingFor-contract"
+          >Contract</label
+        >
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="lookingFor-intern"
+          class="form-check-input"
+          value="Intern"
+          (change)="setLookingFor($event)"
+        />
+        <label class="form-check-label" for="lookingFor-intern">Intern</label>
+      </div>
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="lookingFor-hire"
+          class="form-check-input"
+          value="Contract for Hire"
+          (change)="setLookingFor($event)"
+        />
+        <label class="form-check-label" for="lookingFor-hire"
+          >Contract for hire</label
+        >
+      </div>
+    </div>
+
+    <!-- Start Eduction section -->
+    <div *ngSwitchCase="2">
+      <div class="form-group">
+        <label for="school">Institute</label>
+        <input
+          id="school"
+          type="text"
+          name="education.school"
+          [(ngModel)]="education.school"
+          placeholder="School"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="active"
+          name="education.completed"
+          [(ngModel)]="education.completed"
+          class="form-check-input"
+        />
+        <label class="form-check-label" for="active">Completed Degree</label>
+      </div>
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input
+          id="date"
+          type="text"
+          name="education.completionDate"
+          [(ngModel)]="education.completionDate"
+          placeholder="Completion Date"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="study">Field of Study</label>
+        <input
+          id="Study"
+          type="text"
+          name="education.fieldOfStudy"
+          [(ngModel)]="education.fieldOfStudy"
+          placeholder="Field of Study"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="educationLevel">Education Level</label>
+        <input
+          id="educationLevel"
+          type="text"
+          name="education.educationLevel"
+          [(ngModel)]="education.educationLevel"
+          placeholder="Education Level"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          id="city"
+          type="text"
+          name="education.city"
+          [(ngModel)]="education.city"
+          placeholder="Institute City"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input
+          id="state"
+          type="text"
+          name="education.state"
+          [(ngModel)]="education.state"
+          placeholder="Institute State"
+          class="form-control"
+        />
+      </div>
+      <button
+        (click)="addEducation(); $event.preventDefault()"
+        class="btn btn-success"
+      >
+        Add Eduction
+      </button>
+      <div class="listing" *ngFor="let education of educations">
+        <div class="row">
+          <p>
+            {{ education.educationLevel }} in {{ education.fieldOfStudy }}
+            {{ education.completionDate }}
+          </p>
+          <p>
+            {{ education.school }} {{ education.city }}, {{ education.state }}
+          </p>
+          <button
+            class="delete btn btn-danger"
+            (click)="deleteEducation(education.id); $event.preventDefault()"
+          >
+            Delete Education
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start experience section  -->
+    <div *ngSwitchCase="3">
+      <div class="form-group">
+        <label for="company">Company Name</label>
+        <input
+          id="company"
+          type="text"
+          name="workExperience.company"
+          [(ngModel)]="workExperience.company"
+          placeholder="Company Name"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="title">Job Title</label>
+        <input
+          id="title"
+          type="text"
+          name="workExperience.title"
+          [(ngModel)]="workExperience.title"
+          placeholder="Job Title"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="currentlyEmployed"
+          name="workExperience.currentlyEmployed"
+          [(ngModel)]="workExperience.currentlyEmployed"
+          class="form-check-input"
+        />
+        <label class="form-check-label" for="currentlyEmployed"
+          >Current Employer</label
+        >
+      </div>
+      <div class="form-group">
+        <label for="startMonth">Start Month</label>
+        <input
+          id="startMonth"
+          type="text"
+          name="workExperience.startMonth"
+          [(ngModel)]="workExperience.startMonth"
+          placeholder="Start Month"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="startYear">Start Year</label>
+        <input
+          id="startYear"
+          type="text"
+          name="workExperience.startYear"
+          [(ngModel)]="workExperience.startYear"
+          placeholder="Start Year"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group" *ngIf="!workExperience.currentlyEmployed">
+        <label for="endMonth">End Month</label>
+        <input
+          id="endMonth"
+          type="text"
+          name="workExperience.endMonth"
+          [(ngModel)]="workExperience.endMonth"
+          placeholder="End Month"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group" *ngIf="!workExperience.currentlyEmployed">
+        <label for="endYear">End Year</label>
+        <input
+          id="endYear"
+          type="text"
+          name="workExperience.endYear"
+          [(ngModel)]="workExperience.endYear"
+          placeholder="End Year"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="jobDescription">Job Description</label>
+        <input
+          id="jobDescription"
+          type="text"
+          name="education.jobDescription"
+          [(ngModel)]="education.jobDescription"
+          placeholder="Job Description"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          id="city"
+          type="text"
+          name="workExperience.city"
+          [(ngModel)]="workExperience.city"
+          placeholder="City"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input
+          id="state"
+          type="text"
+          name="workExperience.state"
+          [(ngModel)]="workExperience.state"
+          placeholder="State"
+          class="form-control"
+        />
+      </div>
+      <button
+        (click)="addWorkExperience(); $event.preventDefault()"
+        class="btn btn-success"
+      >
+        Add Work Experience
+      </button>
+      <div class="listing" *ngFor="let workExperience of workExperiences">
+        <div class="row">
+          <p>{{ workExperience.title }} at {{ workExperience.company }}</p>
+          <p>{{ workExperience.city }}, {{ workExperience.state }}</p>
+          <p>
+            From {{ workExperience.startMonth }}/{{
+              workExperience.startYear
+            }}
+            to <span *ngIf="workExperience.currentlyEmployed">Current</span
+            ><span *ngIf="!workExperience.currentlyEmployed"
+              >{{ workExperience.endMonth }}/{{ workExperience.endYear }}</span
+            >
+          </p>
+          <p>{{ workExperience.jobDescription }}</p>
+          <button
+            class="delete btn btn-danger"
+            (click)="
+              deleteWorkExperience(workExperience.id); $event.preventDefault()
+            "
+          >
+            Delete Work Experience
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Start skills section -->
+    <div *ngSwitchCase="4">
+      <label for="skills">Skills</label>
+      <input
+        type="text"
+        id="skills"
+        name="userProfile.skills"
+        placeholder="Skills"
+        class="form-control"
+      />
+      <button
+        (click)="insertSkill($event); $event.preventDefault()"
+        type="button"
+        class="btn btn-success btn-add"
+      >
+        Add Skill
+      </button>
+      <div class="skill-row" *ngFor="let skill of userProfile?.skills">
+        <div class="skill">{{ skill }}</div>
+        <button
+          class="delete btn btn-danger"
+          (click)="deleteSkill($event); $event.preventDefault()"
+        >
+          Delete Skill
+        </button>
+      </div>
+    </div>
+    <!-- Start summary section -->
+    <div *ngSwitchCase="5">
+      <h2>TO DO</h2>
+      <p>Add summary page</p>
+    </div>
+    <div class="btn-wrapper">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pagePrevious(); $event.preventDefault()"
+        [disabled]="pagePosition === 0"
+      >
+        Previous
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="pageNext(); $event.preventDefault()"
+        [disabled]="pagePosition === 5"
+      >
+        Next
+      </button>
+      <button type="submit" *ngIf="pagePosition === 5" class="btn btn-primary">
+        Submit
+      </button>
+    </div>
+  </section>
 </form>

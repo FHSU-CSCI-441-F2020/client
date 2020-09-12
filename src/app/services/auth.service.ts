@@ -232,7 +232,7 @@ export class AuthService {
           // Set authentication to true
           this.userAuthenticated.next(true);
           // Stop loading animation
-          this.loading.next(true);
+          this.loading.next(false);
           // Return to home page
           this.router.navigate(['/']);
         },
