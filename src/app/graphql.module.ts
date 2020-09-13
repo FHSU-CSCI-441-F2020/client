@@ -19,6 +19,7 @@ export function provideApollo(httpLink: HttpLink) {
 
   // Get the authentication token from local storage if it exists
   const token = localStorage.getItem('jobkikToken');
+  console.log(token);
 
   let auth;
   if (token === 'null' || token === null) {
@@ -30,7 +31,6 @@ export function provideApollo(httpLink: HttpLink) {
       },
     }));
   }
-
   const link = ApolloLink.from([basic, auth, httpLink.create({ uri })]);
   const cache = new InMemoryCache();
 
