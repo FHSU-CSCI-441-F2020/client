@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+import { map } from 'rxjs/operators';
 import { User } from '../models/User';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from './user.service';
@@ -69,7 +70,7 @@ const loginUser = gql`
       }
     }
   }
-`;
+`
 
 @Injectable({
   providedIn: 'root',
@@ -120,6 +121,7 @@ export class AuthService {
           // Token is invalid, remove from local storage
           if (localStorage.getItem('jobkikToken') !== null) {
             console.log('Clearing invalid token');
+
             localStorage.setItem('jobkikToken', null);
           }
           this.userAuthenticated.next(false);
@@ -131,9 +133,6 @@ export class AuthService {
           this.userService.setUser(data.me);
           if (!data.me.completedProfile) {
             this.router.navigate(['/createprofile']);
-          } else {
-            // Return to home page
-            this.router.navigate(['/']);
           }
         } else {
           // If data id isn't included, set to false
@@ -176,12 +175,23 @@ export class AuthService {
       })
       .subscribe(
         ({ data }) => {
+          // Add data to user using deconstructor
+          this.user = { ...data['loginUser']['user'] };
           // Set token to returned data value
           const token = data['loginUser']['token'];
           // Store token to local storage
           localStorage.setItem('jobkikToken', token);
-          // Refresh x-token header
-          location.reload();
+          // Stop loading
+          this.loading.next(false);
+          // Set authentication to true
+          this.userAuthenticated.next(true);
+          if (this.user.completedProfile) {
+            // Return to home page
+            this.router.navigate(['/']);
+          } else {
+            // Send to createprofile
+            this.router.navigate(['/createprofile']);
+          }
         },
         (error) => {
           // Stop loading
@@ -245,10 +255,7 @@ export class AuthService {
     this.userService.clearUser();
     // Remove token from storage
     localStorage.setItem('jobkikToken', null);
-    // this.apollo.client.resetStore();
     // Return to home page
     this.router.navigate(['/']);
-    // Refresh x-token header
-    location.reload();
   }
 }
