@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
-import { UserProfile } from '../../../models/userProfile';
+import { UserProfile } from '../../../models/userprofile';
 import { User } from '../../../models/user';
-import { Education } from '../../../models/Education';
-import { WorkExperience } from '../../../models/WorkExperience';
+import { Education } from '../../../models/education';
+import { WorkExperience } from '../../../models/workexperience';
 
 @Component({
   selector: 'app-profile',
