@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
+<<<<<<< HEAD
 import { map } from 'rxjs/operators';
 import { User } from '../models/User';
+=======
+import { User } from '../models/user';
+>>>>>>> 7d7fb46ae0997cd9fdd7e5363cc2a034251fa7fe
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from './user.service';
 import { UserProfile } from '../models/UserProfile';
@@ -149,15 +153,6 @@ export class AuthService {
   public isAuthenticated(): Observable<boolean> {
     return this.userAuthenticated.asObservable();
   }
-/**
- * variable to store that role and update it when the user data is loaded during the load
- */
-  //isAdmin(user : UserProfile) {
-  //var boolean admin  ;
-  
-    
-  
-  //}
 
   /**
    * Return an observable to indicate if something is loading

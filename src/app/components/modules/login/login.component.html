@@ -1,17 +1,61 @@
-<form class="form" (ngSubmit)="onSubmit()">
+<body class="text-center p-3 mb-2 bg-light text-dark">
+<form class="form-signin" (ngSubmit)="onSubmit()">
+  <img class="mb-4" src="https://cdn.pixabay.com/photo/2015/10/30/10/41/internet-1013671__480.jpg" alt width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="inputEmail" class="sr-only">Email address</label>
   <input
-    type="text"
+    type="email"
+    id="inputEmail"
+    class="form"
     name="username"
     [(ngModel)]="username"
     placeholder="Username or email"
+    
   />
+  </div>
+  <!-- <label for="inputEmail" class="sr-only">Email address</label>
+  <input
+    type="email"
+    id="inputEmail"
+    class="form-control"
+    name="username"
+    [(ngModel)]="username"
+    placeholder="Username or email"
+    
+  /> -->
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="inputPassword" class="sr-only">Password</label>
   <input
     type="password"
+    id= "inputPassword"
     name="password"
+    class="form"
     [(ngModel)]="password"
     placeholder="Password"
+    required
   />
-  <input type="submit" value="Submit" class="btn" />
+  </div>
+  <!-- <label for="inputPassword" class="sr-only">Password</label>
+  <input
+    type="password"
+    id= "inputPassword"
+    name="password"
+    class="form-group mx-sm-3 mb-2"
+    [(ngModel)]="password"
+    placeholder="Password"
+    required
+  /> -->
+  <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me">Remember me 
+    </label>
+  </div>
+  <button class="btn btn-lg btn-primary" type="submit" value="submit">Sign in </button>
+  <!-- <input type="submit" value="Submit" class="btn btn-primary" /> -->
+  
 </form>
 
-<button [routerLink]="['/register']">Create Account</button>
+<button class="btn btn-lg" [routerLink]="['/register']">Create Account</button>
+
+</body>

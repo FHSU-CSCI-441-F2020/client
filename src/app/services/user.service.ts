@@ -3,8 +3,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { map } from 'rxjs/operators';
-import { User } from '../models/User';
-import { UserProfile } from '../models/UserProfile';
+import { User } from '../models/user';
+import { UserProfile } from '../models/userprofile';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 // import { AuthService } from './auth.service';
 

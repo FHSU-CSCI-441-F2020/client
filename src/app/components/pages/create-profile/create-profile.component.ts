@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
-import { UserProfile } from '../../../models/UserProfile';
-import { Education } from '../../../models/Education';
-import { WorkExperience } from '../../../models/workExperience';
+import { UserProfile } from '../../../models/userprofile';
+import { Education } from '../../../models/education';
+import { WorkExperience } from '../../../models/workexperience';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
