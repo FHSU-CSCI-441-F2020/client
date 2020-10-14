@@ -120,7 +120,6 @@ export class UserService {
     this.userProfile = new BehaviorSubject<UserProfile>(this.defaultProfile);
     this.user = new BehaviorSubject<User>(this.defaultUser);
   }
-
   /**
    * Set both private user and observable user
    */
