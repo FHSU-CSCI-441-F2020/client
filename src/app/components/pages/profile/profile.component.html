@@ -1,4 +1,7 @@
 <section>
+  <figure id="cover">
+    <video src="../../../assets/home_cover.mp4" muted autoplay loop></video>
+  </figure>
   <div>
     <h1>{{ user.firstName }} {{ user.lastName }}'s Profile</h1>
     <p>{{ profile.statement }}</p>
@@ -6,8 +9,8 @@
       <h4>
         Open to
         <span *ngFor="let lookingFor of profile.lookingFor">
-          {{ lookingFor }}</span
-        >
+          {{ lookingFor }}</span>
+        
       </h4>
     </div>
   </div>
@@ -30,10 +33,10 @@
         From {{ workExperience.startMonth }}/{{
           workExperience.startYear
         }}
-        to <span *ngIf="workExperience.currentlyEmployed">Current</span
-        ><span *ngIf="!workExperience.currentlyEmployed"
-          >{{ workExperience.endMonth }}/{{ workExperience.endYear }}</span
-        >
+        to <span *ngIf="workExperience.currentlyEmployed">Current</span>
+        <span *ngIf="!workExperience.currentlyEmployed">
+          {{ workExperience.endMonth }}/{{ workExperience.endYear }}</span>
+      
       </p>
       <p>{{ workExperience.jobDescription }}</p>
     </div>
