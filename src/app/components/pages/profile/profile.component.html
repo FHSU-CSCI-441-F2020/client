@@ -1,8 +1,7 @@
 <section>
-  <figure id="cover">
-    <video src="../../../assets/home_cover.mp4" muted autoplay loop></video>
-  </figure>
-  <div>
+  
+  <div class="col-md-8 order-md-1 text-center">
+    <div>
     <h1>{{ user.firstName }} {{ user.lastName }}'s Profile</h1>
     <p>{{ profile.statement }}</p>
     <div *ngIf="profile.active">
@@ -49,5 +48,6 @@
     <p *ngIf="profile.address2 !== null">{{ profile.address2 }}</p>
     <p>{{ profile.city }}, {{ profile.state }} {{ profile.zip }}</p>
     <p>{{ user.phoneNumber }} | {{ user.email }}</p>
+  </div>
   </div>
 </section>
