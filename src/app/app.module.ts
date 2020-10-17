@@ -30,6 +30,7 @@ import { JoblistComponent } from './components/pages/joblist/joblist.component';
     LoadingComponent,
     ProfileComponent,
     CreateProfileComponent,
+    JoblistComponent,
   ],
   imports: [
     BrowserModule,
