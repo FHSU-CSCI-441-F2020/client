@@ -6,7 +6,7 @@
       <input type="text" class="form-control shadow-none" placeholder="Search by keyword, technology or job title" [(ngModel)]="gFilter" (ngModelChange)="enterSearch()" >
     </div>
     <div class="button-container">
-      <button class="btn btn-secondary" type="button" (click)="setCategory('')" *ngIf="(SearchFilter.Category)">Clean</button>
+      <button class="btn btn-secondary" type="button" (click)="setCategory('')">Clean</button>
   
       <button class="btn btn-secondary" type="button" *ngFor="let lCategory of gCategories" (click)="setCategory(Category)">{{ '#' + Category }}</button>
   
