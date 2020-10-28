@@ -18,6 +18,7 @@ import { RegisterComponent } from './components/pages/register/register.componen
 import { LoadingComponent } from './components/modules/loading/loading.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { CreateProfileComponent } from './components/pages/create-profile/create-profile.component';
+import { JoblistComponent } from './components/pages/joblist/joblist.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CreateProfileComponent } from './components/pages/create-profile/create
     LoadingComponent,
     ProfileComponent,
     CreateProfileComponent,
+    JoblistComponent,
   ],
   imports: [
     BrowserModule,

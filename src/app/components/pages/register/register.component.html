@@ -1,41 +1,74 @@
-<form class="form" (ngSubmit)="onSubmit()">
-  <input
+<div class="col-md-8 order-md-1 text-center">
+  <h4 class="mb-3"> Create Your Account  </h4>
+
+<form class="needs-validation" (ngSubmit)="onSubmit()">
+  <div >
+    <div class=" mb-3">
+      <input
     type="text"
+    class="form"
     name="user.firstName"
     [(ngModel)]="user.firstName"
     placeholder="First Name"
   />
-  <input
+    </div>
+    <div class=" mb-3">
+      <input
     type="text"
     name="user.lastName"
     [(ngModel)]="user.lastName"
     placeholder="Last Name"
   />
-  <input
+    </div>
+
+  </div>
+  
+  <div class="mb-3">
+    <input
     type="text"
     name="user.username"
     [(ngModel)]="user.username"
     placeholder="Username"
   />
-  <input
+  
+
+  </div>
+  <div class="mb-3">
+    <input
     type="email"
     name="user.email"
     [(ngModel)]="user.email"
     placeholder="Email Address"
   />
-  <input
+  </div>
+  
+  
+  <div class="mb-3">
+    <input
     type="text"
     name="user.phoneNumber"
     [(ngModel)]="user.phoneNumber"
     placeholder="Phone Number"
   />
-  <input
+  </div>
+  
+  <div class="mb-3">
+    <input
     type="password"
     name="user.password"
     [(ngModel)]="user.password"
     placeholder="Password"
   />
-  <input type="submit" value="Submit" class="btn" />
+  </div>
+  
+  <input type="submit" value="Submit" class="btn btn-primary" />
 </form>
 
-<button [routerLink]="['/login']">Already registered? Login</button>
+<div>
+  <button [routerLink]="['/login']">Already registered? Login</button>
+</div>
+
+
+</div>
+
+
