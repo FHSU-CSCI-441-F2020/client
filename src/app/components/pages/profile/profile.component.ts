@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
   public profile: UserProfile;
   public educations: Education[] = [];
   public workExperiences: WorkExperience[] = [];
-
+  public displayProfile: Boolean = false;
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
@@ -24,10 +24,17 @@ export class ProfileComponent implements OnInit {
       // Set user data
       this.user = { ...user };
       // If user is authenticated retrieve user profile
-      if (parseInt(this.user.id) > 0) {
+      console.log('Profile User', user);
+
+      if (parseInt(user.id) > 0) {
         this.userService.getUserProfile().subscribe((profile) => {
+          console.log('user profile:', profile);
+
           // Set profile data
           this.profile = { ...profile };
+          if (this.profile.statement !== '') {
+            this.displayProfile = true;
+          }
           // Convert from JSON to education objects
           this.profile.education.forEach((education) => {
             this.educations.push(JSON.parse(JSON.stringify(education[0])));

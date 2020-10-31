@@ -1,74 +1,85 @@
-<div class="col-md-8 order-md-1 text-center">
-  <h4 class="mb-3"> Create Your Account  </h4>
+<div class="container">
+  <div class="card shadow">
+    <div class="card-body">
+      <div class="card-img-top">
+        <img
+          src="https://cdn.pixabay.com/photo/2015/10/30/10/41/internet-1013671__480.jpg"
+        />
+      </div>
+      <form class="form" (ngSubmit)="onSubmit()">
+        <h4 class="mb-4">Create Your Account</h4>
+        <div>
+          <div class="mb-3">
+            <label class="form-label" for="firstName">First Name</label>
+            <input
+              id="firstName"
+              type="text"
+              class="form-control"
+              name="user.firstName"
+              [(ngModel)]="user.firstName"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input
+              id="lastName"
+              type="text"
+              class="form-control"
+              name="user.lastName"
+              [(ngModel)]="user.lastName"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              class="form-control"
+              name="user.username"
+              [(ngModel)]="user.username"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              name="user.email"
+              [(ngModel)]="user.email"
+            />
+          </div>
 
-<form class="needs-validation" (ngSubmit)="onSubmit()">
-  <div >
-    <div class=" mb-3">
-      <input
-    type="text"
-    class="form"
-    name="user.firstName"
-    [(ngModel)]="user.firstName"
-    placeholder="First Name"
-  />
+          <div class="mb-3">
+            <label class="form-label" for="phoneNumber">Phone Number</label>
+            <input
+              id="phoneNumber"
+              type="text"
+              class="form-control"
+              name="user.phoneNumber"
+              [(ngModel)]="user.phoneNumber"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              class="form-control"
+              name="user.password"
+              [(ngModel)]="user.password"
+            />
+          </div>
+        </div>
+
+        <button class="btn btn-lg btn-primary" type="submit" value="submit">
+          Register
+        </button>
+      </form>
+      <div class="login text-center">
+        <a [routerLink]="['/login']">Already registered? Login</a>
+      </div>
     </div>
-    <div class=" mb-3">
-      <input
-    type="text"
-    name="user.lastName"
-    [(ngModel)]="user.lastName"
-    placeholder="Last Name"
-  />
-    </div>
-
   </div>
-  
-  <div class="mb-3">
-    <input
-    type="text"
-    name="user.username"
-    [(ngModel)]="user.username"
-    placeholder="Username"
-  />
-  
-
-  </div>
-  <div class="mb-3">
-    <input
-    type="email"
-    name="user.email"
-    [(ngModel)]="user.email"
-    placeholder="Email Address"
-  />
-  </div>
-  
-  
-  <div class="mb-3">
-    <input
-    type="text"
-    name="user.phoneNumber"
-    [(ngModel)]="user.phoneNumber"
-    placeholder="Phone Number"
-  />
-  </div>
-  
-  <div class="mb-3">
-    <input
-    type="password"
-    name="user.password"
-    [(ngModel)]="user.password"
-    placeholder="Password"
-  />
-  </div>
-  
-  <input type="submit" value="Submit" class="btn btn-primary" />
-</form>
-
-<div>
-  <button [routerLink]="['/login']">Already registered? Login</button>
 </div>
-
-
-</div>
-
-

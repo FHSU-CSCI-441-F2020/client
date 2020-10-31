@@ -1,21 +1,20 @@
 section {
-  box-sizing: border-box;
-  overflow-y: hidden;
-  width: 100vw;
-  height: auto;
-  color: aliceblue;
-  position: fixed;
-}
-p{
-  color:whitesmoke;
-  text-align:center;
-}
-#cover img {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
+  #cover {
+    height: 100%;
+    width: auto;
+    overflow: hidden;
+    video {
+      margin: 0 auto;
+      display: block;
+      zoom: 1.5;
+    }
+  }
+}
+p {
+  color: whitesmoke;
+  text-align: center;
 }
 
 .title {
@@ -29,7 +28,6 @@ p{
     color: #ecead7;
     text-align: center;
   }
-
 }
 
 .loading {
@@ -39,11 +37,11 @@ p{
   position: fixed;
 }
 button {
-  background-color: #12C643;
+  background-color: #12c643;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
-  border: none;//5px ridge white ;
+  border: none; //5px ridge white ;
   cursor: pointer;
   width: 50%;
   opacity: 0.9;
@@ -54,5 +52,5 @@ button {
   display: table;
 }
 button:hover {
-  opacity:5;
+  opacity: 5;
 }

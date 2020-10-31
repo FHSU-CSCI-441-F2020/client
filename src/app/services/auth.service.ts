@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import { User } from '../models/user';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from './user.service';
-//import { UserProfile } from '../models/UserProfile'; 
+//import { UserProfile } from '../models/UserProfile';
 
 /**
  * Query for getting current user
@@ -70,7 +70,7 @@ const loginUser = gql`
       }
     }
   }
-`
+`;
 
 @Injectable({
   providedIn: 'root',
@@ -187,7 +187,7 @@ export class AuthService {
           this.userAuthenticated.next(true);
           if (this.user.completedProfile) {
             // Return to home page
-            this.router.navigate(['/']);
+            this.router.navigate(['/']).then(() => location.reload());
           } else {
             // Send to createprofile
             this.router.navigate(['/createprofile']);
@@ -234,7 +234,7 @@ export class AuthService {
           // Stop loading animation
           this.loading.next(false);
           // Return to home page
-          this.router.navigate(['/']);
+          this.router.navigate(['/']).then(() => location.reload());
         },
         (error) => {
           // Stop loading
@@ -256,6 +256,6 @@ export class AuthService {
     // Remove token from storage
     localStorage.setItem('jobkikToken', null);
     // Return to home page
-    this.router.navigate(['/']);
+    this.router.navigate(['/']).then(() => location.reload());
   }
 }
