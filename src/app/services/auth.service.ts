@@ -190,7 +190,9 @@ export class AuthService {
             this.router.navigate(['/']).then(() => location.reload());
           } else {
             // Send to createprofile
-            this.router.navigate(['/createprofile']);
+            this.router
+              .navigate(['/createprofile'])
+              .then(() => location.reload());
           }
         },
         (error) => {
