@@ -1,44 +1,51 @@
-<body class="text-center p-3 mb-2 bg-light text-dark">
-<form class="form-signin" (ngSubmit)="onSubmit()">
-  <img class="mb-4" src="https://cdn.pixabay.com/photo/2015/10/30/10/41/internet-1013671__480.jpg" alt width="72" height="72">
-  <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-  <div class="form-group mx-sm-3 mb-2">
-    <label for="inputEmail" class="sr-only">Email address</label>
-  <input
-    type="email"
-    id="inputEmail"
-    class="form"
-    name="username"
-    [(ngModel)]="username"
-    placeholder="Username or email"
-    
-  />
-  </div>
-  
-  <div class="form-group mx-sm-3 mb-2">
-    <label for="inputPassword" class="sr-only">Password</label>
-  <input
-    type="password"
-    id= "inputPassword"
-    name="password"
-    class="form"
-    [(ngModel)]="password"
-    placeholder="Password"
-    required
-  />
-  </div>
-  
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me">Remember me 
-    </label>
-  </div>
-  <button class="btn btn-lg btn-primary" type="submit" value="submit">Sign in </button>
-  <!-- <input type="submit" value="Submit" class="btn btn-primary" /> -->
-  
-</form>
+<div class="container">
+  <div class="card shadow">
+    <div class="card-body">
+      <div class="card-img-top">
+        <img
+          src="https://cdn.pixabay.com/photo/2015/10/30/10/41/internet-1013671__480.jpg"
+        />
+      </div>
+      <form class="form" (ngSubmit)="onSubmit()">
+        <h1 class="text-center mb-4">Please sign in</h1>
+        <div class="mb-3">
+          <label class="form-label" for="loginInput">Username or Email</label>
+          <input
+            class="form-control"
+            id="loginInput"
+            type="text"
+            name="username"
+            [(ngModel)]="username"
+          />
+        </div>
 
-<button class="btn btn-lg" [routerLink]="['/register']">Create Account</button>
-<p class="mt-5 mb-3 text-muted"> © 2020</p>
+        <div class="mb-3">
+          <label class="form-label" for="passwordInput">Password</label>
+          <input
+            class="form-control"
+            id="passwordInput"
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+          />
+        </div>
+        <!-- Not sure we need to add this box, already remember the user -->
+        <!-- <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me" />Remember me
+          </label>
+        </div> -->
+        <button class="btn btn-lg btn-primary" type="submit" value="submit">
+          Sign in
+        </button>
+        <!-- <input type="submit" value="Submit" class="btn btn-primary" /> -->
+      </form>
+      <div class="create text-center">
+        <a [routerLink]="['/register']"> Create Account </a>
+      </div>
+    </div>
+  </div>
+</div>
 
-</body>
+<!-- This will go in the footer
+<p class="mt-5 mb-3 text-muted">© 2020</p> -->

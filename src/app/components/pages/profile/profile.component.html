@@ -1,22 +1,23 @@
 <section>
-  <meta name="viewport" content ="width=device-width,initial-scale=1,shrink-to-fit=no">
-  <head><style>h1 {text-align:center ;}</style></head>
-  <div class="col-md-8 order-md-1 text-center">
+  <div class="col-md-8 order-md-1 text-center" *ngIf="displayProfile">
     <div>
-    <h1 style = "text-align:center;">{{ user.firstName }} {{ user.lastName }}'s Profile</h1><hr>
-    <p>{{ profile.statement }}</p>
-    <div *ngIf="profile.active">
-      <h6>
-        Open to:
-        <span *ngFor="let lookingFor of profile.lookingFor">
-          {{ lookingFor }}</span> jobs.
-        
-      </h6>
+      <h1>{{ user.firstName }} {{ user.lastName }}'s Profile</h1>
+      <hr />
+      <p>{{ profile.statement }}</p>
+      <div *ngIf="profile.active">
+        <h6>
+          Open to:
+          <span *ngFor="let lookingFor of profile.lookingFor">
+            {{ lookingFor }}</span
+          >
+          jobs.
+        </h6>
+      </div>
     </div>
-  </div>
-  <div><br>
-    <h2>Education</h2>
-    <div *ngFor="let education of educations">
+    <div>
+      <br />
+      <h2>Education</h2>
+      <div *ngFor="let education of educations">
         <p>
           {{ education.educationLevel }} in {{ education.fieldOfStudy }}
           {{ education.completionDate }}
@@ -24,31 +25,35 @@
         <p>
           {{ education.school }} {{ education.city }}, {{ education.state }}
         </p>
-    </div><br>
-    <h2>Work Experience</h2>
-    <div *ngFor="let workExperience of workExperiences">
-      <p>{{ workExperience.title }} at {{ workExperience.company }}</p>
-      <p>{{ workExperience.city }}, {{ workExperience.state }}</p>
-      <p>
-        From {{ workExperience.startMonth }}/{{
-          workExperience.startYear
-        }}
-        to <span *ngIf="workExperience.currentlyEmployed">Current</span>
-        <span *ngIf="!workExperience.currentlyEmployed">
-          {{ workExperience.endMonth }}/{{ workExperience.endYear }}</span>
-      
-      </p>
-      <p>{{ workExperience.jobDescription }}</p>
-    </div><br>
-    <h2>Skills</h2>
-    <p *ngFor="let skills of profile.skills">{{ skills }}</p>
+      </div>
+      <br />
+      <h2>Work Experience</h2>
+      <div *ngFor="let workExperience of workExperiences">
+        <p>{{ workExperience.title }} at {{ workExperience.company }}</p>
+        <p>{{ workExperience.city }}, {{ workExperience.state }}</p>
+        <p>
+          From {{ workExperience.startMonth }}/{{ workExperience.startYear }} to
+          <span *ngIf="workExperience.currentlyEmployed">Current</span>
+          <span *ngIf="!workExperience.currentlyEmployed">
+            {{ workExperience.endMonth }}/{{ workExperience.endYear }}</span
+          >
+        </p>
+        <p>{{ workExperience.jobDescription }}</p>
+      </div>
+      <br />
+      <h2>Skills</h2>
+      <p *ngFor="let skills of profile.skills">{{ skills }}</p>
+    </div>
+    <div>
+      <br />
+      <h2>Current Location</h2>
+      <p>{{ profile.address1 }}</p>
+      <p *ngIf="profile.address2 !== null">{{ profile.address2 }}</p>
+      <p>{{ profile.city }}, {{ profile.state }} {{ profile.zip }}</p>
+      <p>{{ user.phoneNumber }} | {{ user.email }}</p>
+    </div>
   </div>
-  <div><br>
-    <h2>Current Location</h2>
-    <p>{{ profile.address1 }}</p>
-    <p *ngIf="profile.address2 !== null">{{ profile.address2 }}</p>
-    <p>{{ profile.city }}, {{ profile.state }} {{ profile.zip }}</p>
-    <p>{{ user.phoneNumber }} | {{ user.email }}</p>
-  </div>
+  <div *ngIf="!displayProfile">
+    <h1 class="text-center">No Profile to Display</h1>
   </div>
 </section>
