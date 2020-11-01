@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Employer } from '../models/Employer';
-import { User } from '../models/User';
+import { Employer } from '../models/employer';
+import { User } from '../models/user';
+import { Jobs } from '../models/jobs';
 import { UserService } from './user.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { first } from 'rxjs/operators';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 /**
  * Mutation for registering user
  */
@@ -38,7 +40,11 @@ const registerEmployer = gql`
   providedIn: 'root',
 })
 export class EmployerService {
-  constructor(private apollo: Apollo, private userService: UserService) {}
+  constructor(
+    private apollo: Apollo,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   registerCompany(employer: Employer): void {
     console.log('Made it to service', employer);
@@ -59,6 +65,7 @@ export class EmployerService {
                 const userUpdated: User = { ...user };
                 userUpdated.role = 'employer';
                 this.userService.setUser(userUpdated);
+                this.router.navigate(['/employers']);
               });
           }
           console.log('Register Employer complete', data);
@@ -76,5 +83,9 @@ export class EmployerService {
           console.log('there was an error sending the query', error);
         }
       );
+  }
+
+  addJob(job: Jobs): void {
+    console.log('made it to services', job);
   }
 }
