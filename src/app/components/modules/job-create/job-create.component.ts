@@ -9,17 +9,20 @@ import { EmployerService } from '../../../services/employer.service';
 })
 export class JobCreateComponent implements OnInit {
   public job: Jobs = {
-    name: '',
-    description: '',
-    requirements: '',
-    location: '',
-    hours: '',
+    name: 'Full Stack Developer',
+    description: 'Build cool stuff',
+    requirements: 'Angular',
+    city: 'Kansas City',
+    state: 'MO',
+    zip: 64151,
+    country: 'USA',
+    hours: '9-5 M-F',
   };
   constructor(private employerService: EmployerService) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
-    console.log('made it to component');
+    this.employerService.addJob(this.job);
   }
 }

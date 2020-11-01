@@ -6,7 +6,10 @@ export interface Jobs {
   name: string;
   description: string;
   requirements: string;
-  location: string;
+  city: string;
+  state: string;
+  zip: number;
+  country: string;
   hours: string;
   applicants?: [string];
 }

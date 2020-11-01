@@ -10,6 +10,33 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 /**
  * Mutation for registering user
  */
+const createJob = gql`
+  mutation createJob(
+    $name: String!
+    $description: String!
+    $requirements: String!
+    $hours: String!
+    $city: String!
+    $state: String!
+    $zip: Int!
+    $country: String!
+  ) {
+    createJob(
+      name: $name
+      description: $description
+      requirements: $requirements
+      hours: $hours
+      city: $city
+      state: $state
+      zip: $zip
+      country: $country
+    )
+  }
+`;
+
+/**
+ * Mutation for registering user
+ */
 const registerEmployer = gql`
   mutation registerEmployer(
     $name: String!
@@ -87,5 +114,29 @@ export class EmployerService {
 
   addJob(job: Jobs): void {
     console.log('made it to services', job);
+    this.apollo
+      .mutate<any>({
+        mutation: createJob,
+        variables: {
+          ...job,
+        },
+      })
+      .subscribe(
+        ({ data }) => {
+          console.log('Job create complete', data);
+          // this.userProfile.next({ ...data.createProfile });
+          // this.userProfile.subscribe((data) => console.log(data));
+
+          // Add data to user using deconstructor
+          // this.userProfile = { ...data['createdProfile'] };
+          // Return to profile
+          // this.router.navigate(['/profile']);
+        },
+        (error) => {
+          // Stop loading
+          // this.authService.loading.next(true);
+          console.log('there was an error sending the query', error);
+        }
+      );
   }
 }
