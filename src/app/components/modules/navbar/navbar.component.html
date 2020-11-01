@@ -22,11 +22,21 @@
           >Home <span class="sr-only">(current)</span></a
         >
       </li>
-      <li class="nav-item" *ngIf="!userLoggedIn">
+      <li class="nav-item">
         <a class="nav-link" [routerLink]="['/joblist']">Jobs</a>
       </li>
-      <li class="nav-item" *ngIf="userLoggedIn && user.completedProfile">
+      <li
+        class="nav-item"
+        *ngIf="
+          userLoggedIn && user.completedProfile && user.role !== 'employer'
+        "
+      >
         <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+      </li>
+      <li class="nav-item" *ngIf="userLoggedIn">
+        <a class="nav-link" [routerLink]="['/registercompany']"
+          >Register Company</a
+        >
       </li>
       <li class="nav-item" *ngIf="userLoggedIn && !user.completedProfile">
         <a class="nav-link" [routerLink]="['/createprofile']">Create Profile</a>
