@@ -15,6 +15,7 @@
       placeholder="Search by keyword, technology or job title"
       [(ngModel)]="gFilter"
       (ngModelChange)="enterSearch()"
+      
     />
   </div>
   <div class="button-container">
@@ -43,10 +44,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let lJob of gFilteredJobs">
-        <td>{{ Job.title }}</td>
-        <td>{{ Job.category }}</td>
-        <td>{{ Job.location }}</td>
+      <tr *ngFor="let J of job">
+        <td>{{ J.name }}</td>
+        <td>{{ J.description }}</td>
+        <td>{{ J.hours }}</td>
       </tr>
       <tr *ngIf="FilteredJobs && FilteredJobs.length == 0">
         <td colspan="3">
