@@ -12,4 +12,6 @@ export interface Jobs {
   country: string;
   hours: string;
   applicants?: [string];
+  owner?: string;
+  active?: boolean;
 }
