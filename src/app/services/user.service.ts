@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 import { UserProfile } from '../models/userprofile';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { LoginComponent } from '../components/modules/login/login.component';
 // import { AuthService } from './auth.service';
 
 /**
@@ -42,7 +43,18 @@ const createProfile = gql`
       zip: $zip
       country: $country
     ) {
-      id
+      statement
+      education
+      workExperience
+      lookingFor
+      skills
+      active
+      address1
+      address2
+      city
+      state
+      zip
+      country
     }
   }
 `;
@@ -119,6 +131,7 @@ export class UserService {
     // Init Observables
     this.userProfile = new BehaviorSubject<UserProfile>(this.defaultProfile);
     this.user = new BehaviorSubject<User>(this.defaultUser);
+    console.log('User service started');
   }
   /**
    * Set both private user and observable user
@@ -126,6 +139,10 @@ export class UserService {
   setUser(user: User): void {
     this.userDetails = { ...user };
     this.user.next({ ...user });
+    if (user.completedProfile) {
+      this.setUserProfile();
+      console.log('User profile started');
+    }
   }
 
   /**
@@ -143,10 +160,7 @@ export class UserService {
     this.userDetails = { ...this.defaultUser };
   }
 
-  /**
-   * Query and return user profile data as observable
-   */
-  getUserProfile(): Observable<UserProfile> {
+  setUserProfile(): void {
     this.apollo
       .watchQuery<any>({
         query: getUserProfile,
@@ -156,7 +170,13 @@ export class UserService {
       })
       .valueChanges.subscribe(({ data, loading }) => {
         this.userProfile.next(data.getUserProfile);
+        console.log(data);
       });
+  }
+  /**
+   * Query and return user profile data as observable
+   */
+  getUserProfile(): Observable<UserProfile> {
     return this.userProfile.asObservable();
   }
 
@@ -170,8 +190,9 @@ export class UserService {
     // this.authService.loading.next(true);
     // Start mutation query
     profile.userId = this.user.value.id;
+
     this.apollo
-      .mutate({
+      .mutate<any>({
         mutation: createProfile,
         variables: {
           ...profile,
@@ -179,8 +200,12 @@ export class UserService {
       })
       .subscribe(
         ({ data }) => {
+          console.log('Updated user complete', data);
+          this.userProfile.next({ ...data.createProfile });
+          this.userProfile.subscribe((data) => console.log(data));
+
           // Add data to user using deconstructor
-          this.userProfile = { ...data['createdProfile'] };
+          // this.userProfile = { ...data['createdProfile'] };
           // Return to profile
           this.router.navigate(['/profile']);
         },
@@ -190,27 +215,27 @@ export class UserService {
           console.log('there was an error sending the query', error);
         }
       );
-    this.apollo
-      .mutate({
-        mutation: updateUser,
-        variables: {
-          id: this.userDetails.id,
-          completedProfile: true,
-        },
-      })
-      .subscribe(
-        ({ data }) => {
-          // Add data to user using deconstructor
-          // this.userProfile = { ...data['createdProfile'] };
-          // Return to profile
-          // this.router.navigate(['/profile']);
-          console.log(data);
-        },
-        (error) => {
-          // Stop loading
-          // this.authService.loading.next(true);
-          console.log('there was an error sending the query', error);
-        }
-      );
+    // this.apollo
+    //   .mutate({
+    //     mutation: updateUser,
+    //     variables: {
+    //       id: this.userDetails.id,
+    //       completedProfile: true,
+    //     },
+    //   })
+    //   .subscribe(
+    //     ({ data }) => {
+    //       // Add data to user using deconstructor
+    //       // this.userProfile = { ...data['createdProfile'] };
+    //       // Return to profile
+    //       // this.router.navigate(['/profile']);
+    //       console.log(data);
+    //     },
+    //     (error) => {
+    //       // Stop loading
+    //       // this.authService.loading.next(true);
+    //       console.log('there was an error sending the query', error);
+    //     }
+    //   );
   }
 }

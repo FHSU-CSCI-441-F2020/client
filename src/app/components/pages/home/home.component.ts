@@ -18,5 +18,8 @@ export class HomeComponent implements OnInit {
     this.authService.isLoaded().subscribe((loading) => {
       this.loading = loading;
     });
+    this.authService
+      .isAuthenticated()
+      .subscribe((authenticated) => (this.isAuthenticated = authenticated));
   }
 }
