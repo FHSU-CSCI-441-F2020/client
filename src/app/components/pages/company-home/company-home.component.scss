@@ -1,3 +1,39 @@
 #jobListing {
   padding: 2rem;
 }
+
+h2 {
+  margin-bottom: 2rem;
+}
+// .close-title {
+//   margin-right: 10%;
+// }
+// .close-container {
+//   padding-right: 10%;
+// }
+.close {
+  height: 25px;
+}
+td > img {
+  margin: 0 auto !important;
+}
+.close-wrapper2 {
+  margin: auto;
+  width: 100%;
+  background-color: red;
+  .close {
+    margin: auto;
+    background-color: royalblue;
+    text-align: center;
+  }
+}
+.card-header {
+  background-color: #007bff;
+  button {
+    color: #ffffff;
+  }
+}
+.btn-block {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}

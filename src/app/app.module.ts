@@ -24,6 +24,7 @@ import { JoblistComponent } from './components/pages/joblist/joblist.component';
 import { CompanyHomeComponent } from './components/pages/company-home/company-home.component';
 import { CompanyRegisterComponent } from './components/modules/company-register/company-register.component';
 import { JobCreateComponent } from './components/modules/job-create/job-create.component';
+import { JobDetailsComponent } from './components/modules/job-details/job-details.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { JobCreateComponent } from './components/modules/job-create/job-create.c
     CompanyHomeComponent,
     CompanyRegisterComponent,
     JobCreateComponent,
+    JobDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,5 @@
+import { User } from './user';
+
 /**
  * Model for a job
  */
@@ -11,7 +13,7 @@ export interface Job {
   zip: number;
   country: string;
   hours: string;
-  applicants?: [string];
+  applicants?: [User];
   owner?: string;
   active?: boolean;
 }

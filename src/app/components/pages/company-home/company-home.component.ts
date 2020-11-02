@@ -10,6 +10,7 @@ import { Employer } from 'src/app/models/employer';
 })
 export class CompanyHomeComponent implements OnInit {
   public jobs: [Job];
+  public job: Job;
   public employer: Employer;
   constructor(
     private jobsService: JobsService,
@@ -18,14 +19,20 @@ export class CompanyHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.employerService.getEmployer().subscribe((employer) => {
-      this.employer = employer;
       if (employer) {
+        this.employer = employer;
         this.jobsService.queryJobs({ owner: employer.id });
       }
     });
     this.jobsService.getJobs().subscribe((jobs) => {
-      this.jobs = jobs;
-      console.log('We got jobs');
+      if (jobs) {
+        this.jobs = jobs;
+        this.job = jobs[0];
+      }
     });
+  }
+
+  selectJob(job: Job): void {
+    this.job = job;
   }
 }

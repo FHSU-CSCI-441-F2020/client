@@ -1,6 +1,7 @@
 <section>
   <div class="row">
-    <div class="accordion" id="jobListing" class="col-8">
+    <div class="accordion" id="jobListing" class="col-8" *ngIf="jobs">
+      <h2 class="text-center">{{ employer.name }}'s Job Listing</h2>
       <div class="card">
         <div class="card-header" id="headingOne">
           <h2 class="mb-0">
@@ -27,16 +28,26 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col"># Applicants</th>
-                  <th scope="col">Close</th>
+                  <th scope="col" class="text-center">Name</th>
+                  <th scope="col" class="text-center"># Applicants</th>
+                  <th scope="col" class="text-center">Close</th>
                 </tr>
               </thead>
               <tbody *ngIf="jobs !== null">
                 <tr *ngFor="let job of jobs">
-                  <td *ngIf="job.active">{{ job.name }}</td>
-                  <td *ngIf="job.active">{{ job.applicants.length }}</td>
-                  <td *ngIf="job.active">X</td>
+                  <td
+                    (click)="selectJob(job)"
+                    *ngIf="job.active"
+                    class="job-name text-center"
+                  >
+                    {{ job.name }}
+                  </td>
+                  <td *ngIf="job.active" class="text-center">
+                    {{ job.applicants.length }}
+                  </td>
+                  <td *ngIf="job.active" class="text-center">
+                    <img class="close" src="/assets/close.png" alt="" />
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -54,7 +65,7 @@
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              Closed Jobs
+              Inactive Jobs
             </button>
           </h2>
         </div>
@@ -68,22 +79,31 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col"># Applicants</th>
-                  <th scope="col">Activate</th>
+                  <th scope="col" class="text-center">Name</th>
+                  <th scope="col" class="text-center"># Applicants</th>
+                  <th scope="col" class="text-center">Activate</th>
                 </tr>
               </thead>
               <tbody *ngIf="jobs !== null">
                 <tr *ngFor="let job of jobs">
-                  <td *ngIf="!job.active">{{ job.name }}</td>
-                  <td *ngIf="!job.active">{{ job.applicants.length }}</td>
-                  <td *ngIf="!job.active">X</td>
+                  <td
+                    (click)="selectJob(job)"
+                    *ngIf="!job.active"
+                    class="job-name text-center"
+                  >
+                    {{ job.name }}
+                  </td>
+                  <td *ngIf="!job.active" class="text-center">
+                    {{ job.applicants.length }}
+                  </td>
+                  <td *ngIf="!job.active" class="text-center">X</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
+      <app-job-details *ngIf="this.job" [job]="job"></app-job-details>
     </div>
     <div class="col-4">
       <app-job-create></app-job-create>

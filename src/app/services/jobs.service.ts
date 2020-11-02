@@ -25,7 +25,11 @@ const getJob = gql`
       state
       zip
       country
-      applicants
+      applicants {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;
@@ -46,7 +50,11 @@ const getJobs = gql`
       state
       zip
       country
-      applicants
+      applicants {
+        id
+        firstName
+        lastName
+      }
     }
   }
 `;
