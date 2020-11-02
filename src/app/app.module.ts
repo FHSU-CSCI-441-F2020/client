@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { EmployerService } from './services/employer.service';
+import { JobsService } from './services/jobs.service';
 import { NavbarComponent } from './components/modules/navbar/navbar.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
@@ -48,7 +49,7 @@ import { JobCreateComponent } from './components/modules/job-create/job-create.c
     HttpClientModule,
     HttpLinkModule,
   ],
-  providers: [AuthService, UserService, EmployerService],
+  providers: [AuthService, UserService, EmployerService, JobsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

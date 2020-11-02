@@ -53,7 +53,7 @@ const registerUser = gql`
   }
 `;
 /**
- * Query for getting current user
+ * Mutation for getting current user
  */
 const loginUser = gql`
   mutation loginUser($username: String!, $password: String!) {

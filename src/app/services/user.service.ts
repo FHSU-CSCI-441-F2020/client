@@ -124,10 +124,7 @@ export class UserService {
     zip: 0,
     country: '',
   };
-  constructor(
-    private apollo: Apollo,
-    private router: Router // private authService: AuthService
-  ) {
+  constructor(private apollo: Apollo, private router: Router) {
     // Init Observables
     this.userProfile = new BehaviorSubject<UserProfile>(this.defaultProfile);
     this.user = new BehaviorSubject<User>(this.defaultUser);

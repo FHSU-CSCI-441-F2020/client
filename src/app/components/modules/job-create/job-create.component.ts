@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Jobs } from '../../../models/jobs';
+import { Job } from '../../../models/job';
 import { EmployerService } from '../../../services/employer.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { EmployerService } from '../../../services/employer.service';
   styleUrls: ['./job-create.component.scss'],
 })
 export class JobCreateComponent implements OnInit {
-  public job: Jobs = {
+  public job: Job = {
     name: 'Full Stack Developer',
     description: 'Build cool stuff',
     requirements: 'Angular',

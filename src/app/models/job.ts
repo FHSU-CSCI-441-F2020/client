@@ -1,7 +1,7 @@
 /**
- * Model for a jobs
+ * Model for a job
  */
-export interface Jobs {
+export interface Job {
   id?: string;
   name: string;
   description: string;

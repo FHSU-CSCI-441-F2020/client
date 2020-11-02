@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Employer } from '../models/employer';
 import { User } from '../models/user';
-import { Jobs } from '../models/jobs';
+import { Job } from '../models/job';
 import { UserService } from './user.service';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 /**
  * Mutation for registering user
  */
@@ -63,15 +64,62 @@ const registerEmployer = gql`
   }
 `;
 
+/**
+ * Query for getting single job
+ */
+const getEmployer = gql`
+  query getEmployer($id: ID!) {
+    getEmployer(id: $id) {
+      id
+      name
+      teamMembers
+      jobs
+      email
+      phoneNumber
+      owner
+      address1
+      address2
+      city
+      state
+      zip
+      country
+    }
+  }
+`;
+
 @Injectable({
   providedIn: 'root',
 })
 export class EmployerService {
+  private employer: BehaviorSubject<Employer>;
+
   constructor(
     private apollo: Apollo,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) {
+    this.employer = new BehaviorSubject<Employer>(null);
+    this.userService
+      .getUser()
+      .pipe(first())
+      .subscribe((user) => {
+        this.apollo
+          .watchQuery<any>({
+            query: getEmployer,
+            variables: {
+              id: user.id,
+            },
+          })
+          .valueChanges.subscribe(({ data, loading }) => {
+            console.log('Get employer:', data, loading);
+            this.employer.next(data.getEmployer);
+          });
+      });
+  }
+
+  getEmployer(): Observable<Employer> {
+    return this.employer.asObservable();
+  }
 
   registerCompany(employer: Employer): void {
     console.log('Made it to service', employer);
@@ -112,7 +160,7 @@ export class EmployerService {
       );
   }
 
-  addJob(job: Jobs): void {
+  addJob(job: Job): void {
     console.log('made it to services', job);
     this.apollo
       .mutate<any>({
