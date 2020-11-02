@@ -29,11 +29,23 @@ td > img {
 }
 .card-header {
   background-color: #007bff;
+  transition: 0.5s;
   button {
     color: #ffffff;
   }
 }
+.card-header:hover {
+  background-color: #0069d9;
+}
 .btn-block {
   text-transform: uppercase;
   letter-spacing: 0.1rem;
+  text-decoration: none;
+}
+
+.job-list {
+  transition: 0.5s;
+}
+.job-list:hover {
+  background-color: #e6e6e6;
 }

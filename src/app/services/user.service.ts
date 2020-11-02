@@ -68,6 +68,7 @@ const updateUser = gql`
     }
   }
 `;
+
 /**
  * Query for getting current user profile
  */
@@ -86,6 +87,36 @@ const getUserProfile = gql`
       state
       zip
       country
+    }
+  }
+`;
+
+/**
+ * Query for getting current user profile
+ */
+const getProfile = gql`
+  query getProfile($id: ID!) {
+    getProfile(id: $id) {
+      userProfile {
+        statement
+        education
+        workExperience
+        lookingFor
+        skills
+        active
+        address1
+        address2
+        city
+        state
+        zip
+        country
+      }
+      user {
+        firstName
+        lastName
+        phoneNumber
+        email
+      }
     }
   }
 `;
@@ -124,10 +155,14 @@ export class UserService {
     zip: 0,
     country: '',
   };
+
+  private profile: BehaviorSubject<any>;
   constructor(private apollo: Apollo, private router: Router) {
     // Init Observables
     this.userProfile = new BehaviorSubject<UserProfile>(this.defaultProfile);
     this.user = new BehaviorSubject<User>(this.defaultUser);
+    this.profile = new BehaviorSubject<any>(null);
+
     console.log('User service started');
   }
   /**
@@ -234,5 +269,43 @@ export class UserService {
     //       console.log('there was an error sending the query', error);
     //     }
     //   );
+  }
+
+  /**
+   * Query and return user profile data as observable
+   */
+  getProfile(): Observable<any> {
+    return this.profile.asObservable();
+  }
+
+  /**
+   * Create a user profile and set user to completed profile
+   *
+   * @param profile User profile data to create profile
+   */
+  queryProfile(userId: any): void {
+    // Set loading to true
+    // this.authService.loading.next(true);
+    // Start mutation query
+    const id = userId.toInt;
+    this.apollo
+      .mutate<any>({
+        mutation: getProfile,
+        variables: {
+          id: userId,
+        },
+      })
+      .subscribe(
+        ({ data }) => {
+          if (data) {
+            this.profile.next({ ...data });
+          }
+        },
+        (error) => {
+          // Stop loading
+          // this.authService.loading.next(true);
+          console.log('there was an error sending the query', error);
+        }
+      );
   }
 }

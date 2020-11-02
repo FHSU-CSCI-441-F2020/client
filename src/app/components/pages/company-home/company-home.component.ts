@@ -19,7 +19,9 @@ export class CompanyHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.employerService.getEmployer().subscribe((employer) => {
-      if (employer) {
+      console.log(employer);
+
+      if (employer !== null) {
         this.employer = employer;
         this.jobsService.queryJobs({ owner: employer.id });
       }
@@ -27,7 +29,6 @@ export class CompanyHomeComponent implements OnInit {
     this.jobsService.getJobs().subscribe((jobs) => {
       if (jobs) {
         this.jobs = jobs;
-        this.job = jobs[0];
       }
     });
   }

@@ -34,12 +34,12 @@
                 </tr>
               </thead>
               <tbody *ngIf="jobs !== null">
-                <tr *ngFor="let job of jobs">
-                  <td
-                    (click)="selectJob(job)"
-                    *ngIf="job.active"
-                    class="job-name text-center"
-                  >
+                <tr
+                  *ngFor="let job of jobs"
+                  class="job-list"
+                  (click)="selectJob(job)"
+                >
+                  <td *ngIf="job.active" class="job-name text-center">
                     {{ job.name }}
                   </td>
                   <td *ngIf="job.active" class="text-center">
@@ -85,12 +85,12 @@
                 </tr>
               </thead>
               <tbody *ngIf="jobs !== null">
-                <tr *ngFor="let job of jobs">
-                  <td
-                    (click)="selectJob(job)"
-                    *ngIf="!job.active"
-                    class="job-name text-center"
-                  >
+                <tr
+                  *ngFor="let job of jobs"
+                  class="job-list"
+                  (click)="selectJob(job)"
+                >
+                  <td *ngIf="!job.active" class="text-center">
                     {{ job.name }}
                   </td>
                   <td *ngIf="!job.active" class="text-center">

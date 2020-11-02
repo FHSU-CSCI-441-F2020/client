@@ -1,7 +1,7 @@
 <section class="col-8" *ngIf="job !== null">
   <div class="details">
     <div class="container">
-      <div class="card">
+      <div class="card shadow">
         <div class="card-header">{{ job.name }}</div>
         <div class="card-body">
           <p>{{ job.description }}</p>
@@ -15,7 +15,9 @@
           <h4>Applicants:</h4>
           <p *ngIf="job.applicants.length === 0">No Applicants</p>
           <div *ngFor="let user of job.applicants">
-            <p>{{ user.firstName }} {{ user.lastName }}</p>
+            <p [routerLink]="['/candidate/profile/', user.id]">
+              {{ user.firstName }} {{ user.lastName }}
+            </p>
           </div>
         </div>
       </div>
