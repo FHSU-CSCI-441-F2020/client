@@ -1,0 +1,92 @@
+<section>
+  <div class="row">
+    <div class="accordion" id="jobListing" class="col-8">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Active Jobs
+            </button>
+          </h2>
+        </div>
+
+        <div
+          id="collapseOne"
+          class="collapse show"
+          aria-labelledby="headingOne"
+          data-parent="#jobListing"
+        >
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col"># Applicants</th>
+                  <th scope="col">Close</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="jobs !== null">
+                <tr *ngFor="let job of jobs">
+                  <td *ngIf="job.active">{{ job.name }}</td>
+                  <td *ngIf="job.active">{{ job.applicants.length }}</td>
+                  <td *ngIf="job.active">X</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingTwo">
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link btn-block text-left collapsed"
+              type="button"
+              data-toggle="collapse"
+              data-target="#collapseTwo"
+              aria-expanded="false"
+              aria-controls="collapseTwo"
+            >
+              Closed Jobs
+            </button>
+          </h2>
+        </div>
+        <div
+          id="collapseTwo"
+          class="collapse"
+          aria-labelledby="headingTwo"
+          data-parent="#jobListing"
+        >
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col"># Applicants</th>
+                  <th scope="col">Activate</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="jobs !== null">
+                <tr *ngFor="let job of jobs">
+                  <td *ngIf="!job.active">{{ job.name }}</td>
+                  <td *ngIf="!job.active">{{ job.applicants.length }}</td>
+                  <td *ngIf="!job.active">X</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <app-job-create></app-job-create>
+    </div>
+  </div>
+</section>

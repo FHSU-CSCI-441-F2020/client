@@ -1,20 +1,40 @@
 <div class="container search-container">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <button class="btn btn-link bg-white" type="button" (click)="enterSearch()"><i class="fa fa-search"></i></button>
-      </div>
-      <input type="text" class="form-control shadow-none" placeholder="Search by keyword, technology or job title" [(ngModel)]="gFilter" (ngModelChange)="enterSearch()" >
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <button
+        class="btn btn-link bg-white"
+        type="button"
+        (click)="enterSearch()"
+      >
+        <i class="fa fa-search"></i>
+      </button>
     </div>
-    <div class="button-container">
-      <button class="btn btn-secondary" type="button" (click)="setCategory('')">Clean</button>
-  
-      <button class="btn btn-secondary" type="button" *ngFor="let lCategory of gCategories" (click)="setCategory(Category)">{{ '#' + Category }}</button>
-  
-    </div>
+    <input
+      type="text"
+      class="form-control shadow-none"
+      placeholder="Search by keyword, technology or job title"
+      [(ngModel)]="gFilter"
+      (ngModelChange)="enterSearch()"
+    />
   </div>
+  <div class="button-container">
+    <button class="btn btn-secondary" type="button" (click)="setCategory('')">
+      Clean
+    </button>
+
+    <button
+      class="btn btn-secondary"
+      type="button"
+      *ngFor="let lCategory of gCategories"
+      (click)="setCategory(Category)"
+    >
+      {{ "#" + Category }}
+    </button>
+  </div>
+</div>
 
 <div class="container table-container">
-<table class="table">
+  <table class="table">
     <thead>
       <tr>
         <th scope="col">Position</th>
@@ -29,9 +49,10 @@
         <td>{{ Job.location }}</td>
       </tr>
       <tr *ngIf="FilteredJobs && FilteredJobs.length == 0">
-        <td colspan="3">Sorry, there were no positions found for your search</td>
+        <td colspan="3">
+          Sorry, there were no positions found for your search
+        </td>
       </tr>
     </tbody>
   </table>
-
 </div>

@@ -1,0 +1,107 @@
+<section>
+  <div class="container">
+    <div class="card shadow">
+      <div class="card-body">
+        <div class="card-img-top">
+          <form class="form" (ngSubmit)="onSubmit()">
+            <h4 class="mb-4">Create New Job Post</h4>
+            <div>
+              <div class="mb-3">
+                <label class="form-label" for="name">Job Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  class="form-control"
+                  name="job.name"
+                  [(ngModel)]="job.name"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="description"
+                  >Job Description</label
+                >
+                <input
+                  id="description"
+                  type="text"
+                  class="form-control"
+                  name="job.description"
+                  [(ngModel)]="job.description"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="requirements"
+                  >Job Requirements</label
+                >
+                <input
+                  id="requirements"
+                  type="text"
+                  class="form-control"
+                  name="job.requirements"
+                  [(ngModel)]="job.requirements"
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="hours">Job Hours</label>
+                <input
+                  id="hours"
+                  type="text"
+                  class="form-control"
+                  name="job.hours"
+                  [(ngModel)]="job.hours"
+                />
+              </div>
+              <div class="form-group">
+                <label for="city">City</label>
+                <input
+                  type="text"
+                  id="city"
+                  name="job.city"
+                  [(ngModel)]="job.city"
+                  placeholder="Please enter your city"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="state">State</label>
+                <input
+                  type="text"
+                  id="state"
+                  name="job.state"
+                  [(ngModel)]="job.state"
+                  placeholder="Enter State"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="zip">Zip Code</label>
+                <input
+                  type="text"
+                  id="zip"
+                  name="job.zip"
+                  [(ngModel)]="job.zip"
+                  placeholder="Enter Zip Code"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="country">Country</label>
+                <input
+                  type="text"
+                  id="country"
+                  name="job.country"
+                  [(ngModel)]="job.country"
+                  placeholder="Enter Country"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <button class="btn btn-lg btn-primary" type="submit" value="submit">
+              List Job
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
