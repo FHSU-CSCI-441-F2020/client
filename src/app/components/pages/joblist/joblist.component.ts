@@ -23,6 +23,7 @@ export class JoblistComponent implements OnInit {
   constructor(private jobsServices: JobsService) { }
 
   ngOnInit(): void {
+    console.log('testing to see');
     this.jobsServices.queryJobs({active: true});//query active jobs listings
     this.jobsServices.getJobs().subscribe(jobs =>{
       this.job = jobs;
