@@ -73,7 +73,7 @@ const updateUser = gql`
  * Query for getting current user profile
  */
 const getUserProfile = gql`
-  query getUserProfile($userId: String!) {
+  query getUserProfile($userId: ID!) {
     getUserProfile(userId: $userId) {
       statement
       education

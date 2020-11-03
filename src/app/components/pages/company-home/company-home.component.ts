@@ -23,12 +23,14 @@ export class CompanyHomeComponent implements OnInit {
 
       if (employer !== null) {
         this.employer = employer;
+        console.log(employer);
+
         this.jobsService.queryJobs({ owner: employer.id });
-      }
-    });
-    this.jobsService.getJobs().subscribe((jobs) => {
-      if (jobs) {
-        this.jobs = jobs;
+        this.jobsService.getJobs().subscribe((jobs) => {
+          if (jobs) {
+            this.jobs = jobs;
+          }
+        });
       }
     });
   }

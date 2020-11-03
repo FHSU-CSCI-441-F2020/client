@@ -26,19 +26,29 @@ export class CandidateProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.queryProfile(this.id);
     this.userService.getProfile().subscribe((profile) => {
+      console.log(profile);
+
       if (profile !== null) {
-        this.user = { ...profile.user };
-        this.profile = { ...profile.userProfile };
+        console.log('Within profile if', profile);
+
+        this.user = { ...profile.getProfile.user };
+        this.profile = { ...profile.getProfile.userProfile };
         // Convert from JSON to education objects
-        this.profile.education.forEach((education) => {
-          this.educations.push(JSON.parse(JSON.stringify(education[0])));
-        });
+        console.log(this.profile.education);
+
+        if (this.profile?.education !== undefined) {
+          this.profile.education.forEach((education) => {
+            const jsonEduc = JSON.parse(JSON.stringify(education));
+            this.educations.push(JSON.parse(jsonEduc));
+          });
+        }
         // Convert from JSON to work experience objects
-        this.profile.workExperience.forEach((workExperience) => {
-          this.workExperiences.push(
-            JSON.parse(JSON.stringify(workExperience[0]))
-          );
-        });
+        if (this.profile?.workExperience !== undefined) {
+          this.profile.workExperience.forEach((workExperience) => {
+            const jsonWork = JSON.parse(JSON.stringify(workExperience));
+            this.workExperiences.push(JSON.parse(jsonWork));
+          });
+        }
       }
     });
   }

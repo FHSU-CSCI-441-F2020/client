@@ -1,13 +1,13 @@
 <section>
-  <div class="col-md-8 order-md-1 text-center" *ngIf="displayProfile">
+  <div class="col-md-8 order-md-1 text-center">
     <div>
-      <h1>{{ user.firstName }} {{ user.lastName }}'s Profile</h1>
+      <h1>{{ user?.firstName }} {{ user?.lastName }}'s Profile</h1>
       <hr />
-      <p>{{ profile.statement }}</p>
-      <div *ngIf="profile.active">
+      <p>{{ profile?.statement }}</p>
+      <div *ngIf="profile?.active">
         <h6>
           Open to:
-          <span *ngFor="let lookingFor of profile.lookingFor">
+          <span *ngFor="let lookingFor of profile?.lookingFor">
             {{ lookingFor }}</span
           >
           jobs.
@@ -42,18 +42,18 @@
       </div>
       <br />
       <h2>Skills</h2>
-      <p *ngFor="let skills of profile.skills">{{ skills }}</p>
+      <p *ngFor="let skills of profile?.skills">{{ skills }}</p>
     </div>
     <div>
       <br />
       <h2>Current Location</h2>
-      <p>{{ profile.address1 }}</p>
-      <p *ngIf="profile.address2 !== null">{{ profile.address2 }}</p>
-      <p>{{ profile.city }}, {{ profile.state }} {{ profile.zip }}</p>
-      <p>{{ user.phoneNumber }} | {{ user.email }}</p>
+      <p>{{ profile?.address1 }}</p>
+      <p *ngIf="profile?.address2 !== null">{{ profile?.address2 }}</p>
+      <p>{{ profile?.city }}, {{ profile?.state }} {{ profile?.zip }}</p>
+      <p>{{ user?.phoneNumber }} | {{ user?.email }}</p>
     </div>
   </div>
-  <div *ngIf="!displayProfile">
+  <div *ngIf="">
     <h1 class="text-center">No Profile to Display</h1>
   </div>
 </section>

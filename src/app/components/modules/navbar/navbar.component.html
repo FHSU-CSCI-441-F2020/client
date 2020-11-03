@@ -25,7 +25,7 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/joblist']">Job Search</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="user.role === 'employer'">
         <a class="nav-link" [routerLink]="['/employers']">Job Posting</a>
       </li>
       <li

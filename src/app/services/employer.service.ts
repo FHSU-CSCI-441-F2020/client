@@ -72,7 +72,6 @@ const getEmployer = gql`
     getEmployer(id: $id) {
       id
       name
-      teamMembers
       jobs
       email
       phoneNumber
@@ -92,13 +91,25 @@ const getEmployer = gql`
 })
 export class EmployerService {
   private employer: BehaviorSubject<Employer>;
-
+  private defaultEmployer: Employer = {
+    id: '',
+    name: '',
+    jobs: [''],
+    email: '',
+    phoneNumber: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    zip: 0,
+    country: '',
+  };
   constructor(
     private apollo: Apollo,
     private userService: UserService,
     private router: Router
   ) {
-    this.employer = new BehaviorSubject<Employer>(null);
+    this.employer = new BehaviorSubject<Employer>(this.defaultEmployer);
     this.userService
       .getUser()
       .pipe(first())

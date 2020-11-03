@@ -132,7 +132,7 @@ export class AuthService {
           this.loading.next(false);
           this.userService.setUser(data.me);
           if (data.me.role === 'employer') {
-            this.router.navigate(['/employers']);
+            // this.router.navigate(['/employers']);
           } else if (!data.me.completedProfile) {
             this.router.navigate(['/createprofile']);
           }

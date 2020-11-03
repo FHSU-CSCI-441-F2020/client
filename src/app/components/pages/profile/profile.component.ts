@@ -29,22 +29,23 @@ export class ProfileComponent implements OnInit {
       if (parseInt(user.id) > 0) {
         this.userService.getUserProfile().subscribe((profile) => {
           console.log('user profile:', profile);
-
-          // Set profile data
-          this.profile = { ...profile };
-          if (this.profile.statement !== '') {
-            this.displayProfile = true;
+          if (profile) {
+            // Set profile data
+            this.profile = { ...profile };
+            if (this.profile.statement !== '') {
+              this.displayProfile = true;
+            }
+            // Convert from JSON to education objects
+            this.profile.education.forEach((education) => {
+              const jsonEduc = JSON.parse(JSON.stringify(education));
+              this.educations.push(JSON.parse(jsonEduc));
+            });
+            // Convert from JSON to work experience objects
+            this.profile.workExperience.forEach((workExperience) => {
+              const jsonWork = JSON.parse(JSON.stringify(workExperience));
+              this.workExperiences.push(JSON.parse(jsonWork));
+            });
           }
-          // Convert from JSON to education objects
-          this.profile.education.forEach((education) => {
-            this.educations.push(JSON.parse(JSON.stringify(education[0])));
-          });
-          // Convert from JSON to work experience objects
-          this.profile.workExperience.forEach((workExperience) => {
-            this.workExperiences.push(
-              JSON.parse(JSON.stringify(workExperience[0]))
-            );
-          });
         });
       }
     });
