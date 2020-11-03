@@ -8,6 +8,7 @@ import gql from 'graphql-tag';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { JobsService } from './jobs.service';
 /**
  * Mutation for registering user
  */
@@ -21,6 +22,7 @@ const createJob = gql`
     $state: String!
     $zip: Int!
     $country: String!
+    $owner: ID!
   ) {
     createJob(
       name: $name
@@ -31,7 +33,24 @@ const createJob = gql`
       state: $state
       zip: $zip
       country: $country
-    )
+      owner: $owner
+    ) {
+      name
+      description
+      requirements
+      owner
+      active
+      hours
+      city
+      state
+      zip
+      country
+      applicants {
+        id
+        firstName
+        lastName
+      }
+    }
   }
 `;
 
@@ -107,24 +126,32 @@ export class EmployerService {
   constructor(
     private apollo: Apollo,
     private userService: UserService,
+    private jobService: JobsService,
     private router: Router
   ) {
+    console.log('Employer Service Started');
+
     this.employer = new BehaviorSubject<Employer>(this.defaultEmployer);
+
     this.userService
       .getUser()
       .pipe(first())
       .subscribe((user) => {
-        this.apollo
-          .watchQuery<any>({
-            query: getEmployer,
-            variables: {
-              id: user.id,
-            },
-          })
-          .valueChanges.subscribe(({ data, loading }) => {
-            console.log('Get employer:', data, loading);
-            this.employer.next(data.getEmployer);
-          });
+        if (user) {
+          console.log(user);
+
+          this.apollo
+            .watchQuery<any>({
+              query: getEmployer,
+              variables: {
+                id: user.id,
+              },
+            })
+            .valueChanges.subscribe(({ data, loading }) => {
+              console.log('Get employer:', data, loading);
+              this.employer.next(data.getEmployer);
+            });
+        }
       });
   }
 
@@ -173,16 +200,21 @@ export class EmployerService {
 
   addJob(job: Job): void {
     console.log('made it to services', job);
+    const owner = this.employer.getValue().id;
     this.apollo
       .mutate<any>({
         mutation: createJob,
         variables: {
+          owner: owner,
           ...job,
         },
       })
       .subscribe(
         ({ data }) => {
           console.log('Job create complete', data);
+          if (data) {
+            this.jobService.setJobs(data.createJob);
+          }
           // this.userProfile.next({ ...data.createProfile });
           // this.userProfile.subscribe((data) => console.log(data));
 

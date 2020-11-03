@@ -132,9 +132,11 @@ export class AuthService {
           this.loading.next(false);
           this.userService.setUser(data.me);
           if (data.me.role === 'employer') {
-            // this.router.navigate(['/employers']);
+            this.router.navigate(['/']);
           } else if (!data.me.completedProfile) {
             this.router.navigate(['/createprofile']);
+          } else {
+            this.router.navigate(['/']);
           }
         } else {
           // If data id isn't included, set to false

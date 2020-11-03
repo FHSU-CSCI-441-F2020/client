@@ -72,18 +72,26 @@ export class JobsService {
   }
 
   public queryJobs(args: {}): void {
+    console.log('Get those jobs');
+
     this.apollo
       .watchQuery<any>({
         query: getJobs,
         variables: { ...args },
       })
       .valueChanges.subscribe(({ data, loading }) => {
-        console.log(data, loading);
         this.jobs.next(data.getJobs);
       });
   }
 
   public getJobs(): Observable<[Job]> {
     return this.jobs.asObservable();
+  }
+
+  public setJobs(jobs: [Job]): void {
+    this.jobs.next(jobs);
+    console.log(jobs);
+
+    console.log(this.jobs.getValue());
   }
 }

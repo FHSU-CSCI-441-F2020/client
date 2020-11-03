@@ -28,6 +28,8 @@ export class CompanyHomeComponent implements OnInit {
         this.jobsService.queryJobs({ owner: employer.id });
         this.jobsService.getJobs().subscribe((jobs) => {
           if (jobs) {
+            console.log('new jobs incoming');
+
             this.jobs = jobs;
           }
         });
