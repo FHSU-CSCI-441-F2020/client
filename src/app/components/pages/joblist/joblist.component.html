@@ -40,14 +40,14 @@
       <tr>
         <th scope="col">Company Name</th>
         <th scope="col">Job Description</th>
-        <th scope="col">Job-Location</th>
+        <th scope="col">Job-Requirements</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let J of job">
         <td>{{ J.name }}</td>
         <td>{{ J.description }}</td>
-        <td>{{ J.hours }}</td>
+        <td>{{ J.requirements }}</td>
       </tr>
       <tr *ngIf="FilteredJobs && FilteredJobs.length == 0">
         <td colspan="3">
