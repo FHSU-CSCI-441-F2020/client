@@ -53,7 +53,7 @@ const registerUser = gql`
   }
 `;
 /**
- * Query for getting current user
+ * Mutation for getting current user
  */
 const loginUser = gql`
   mutation loginUser($username: String!, $password: String!) {
@@ -131,8 +131,12 @@ export class AuthService {
           this.userAuthenticated.next(true);
           this.loading.next(false);
           this.userService.setUser(data.me);
-          if (!data.me.completedProfile) {
+          if (data.me.role === 'employer') {
+            this.router.navigate(['/']);
+          } else if (!data.me.completedProfile) {
             this.router.navigate(['/createprofile']);
+          } else {
+            this.router.navigate(['/']);
           }
         } else {
           // If data id isn't included, set to false
@@ -181,19 +185,22 @@ export class AuthService {
           const token = data['loginUser']['token'];
           // Store token to local storage
           localStorage.setItem('jobkikToken', token);
+          location.reload();
           // Stop loading
-          this.loading.next(false);
+          // this.loading.next(false);
           // Set authentication to true
-          this.userAuthenticated.next(true);
-          if (this.user.completedProfile) {
-            // Return to home page
-            this.router.navigate(['/']).then(() => location.reload());
-          } else {
-            // Send to createprofile
-            this.router
-              .navigate(['/createprofile'])
-              .then(() => location.reload());
-          }
+          // this.userAuthenticated.next(true);
+          // if (this.user.completedProfile) {
+          //   // Return to home page
+          //   this.router.navigate(['/']).then(() => location.reload());
+          // } else if (this.user.role === 'employer') {
+          //   this.router.navigate(['/employers']).then(() => location.reload());
+          // } else {
+          //   // Send to createprofile
+          //   this.router
+          //     .navigate(['/createprofile'])
+          //     .then(() => location.reload());
+          // }
         },
         (error) => {
           // Stop loading

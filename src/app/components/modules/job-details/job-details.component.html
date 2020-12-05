@@ -1,0 +1,26 @@
+<section class="col-8" *ngIf="job !== null">
+  <div class="details">
+    <div class="container">
+      <div class="card shadow">
+        <div class="card-header">{{ job.name }}</div>
+        <div class="card-body">
+          <p>{{ job.description }}</p>
+          <p>{{ job.requirements }}</p>
+          <div class="row address">
+            <p>{{ job.city }}, {{ job.state }} {{ job.zip }}</p>
+          </div>
+          <p>{{ job.hours }}</p>
+          <p *ngIf="job.active" class="active">Active</p>
+          <p *ngIf="!job.active" class="inactive">Inactive</p>
+          <h4>Applicants:</h4>
+          <p *ngIf="job.applicants.length === 0">No Applicants</p>
+          <div *ngFor="let user of job.applicants">
+            <p [routerLink]="['/candidate/profile/', user.id]">
+              {{ user.firstName }} {{ user.lastName }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

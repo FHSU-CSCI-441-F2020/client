@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="card shadow">
+    <div class="card-body">
+      <div class="card-img-top">
+        <!-- <img
+          src="https://cdn.pixabay.com/photo/2015/10/30/10/41/internet-1013671__480.jpg"
+        /> -->
+      </div>
+      <form class="form" (ngSubmit)="onSubmit()">
+        <h4 class="mb-4">Register Your Company</h4>
+        <div>
+          <div class="mb-3">
+            <label class="form-label" for="name">Company Name</label>
+            <input
+              id="name"
+              type="text"
+              class="form-control"
+              name="employer.name"
+              [(ngModel)]="employer.name"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              name="employer.email"
+              [(ngModel)]="employer.email"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="phoneNumber">Phone Number</label>
+            <input
+              id="phoneNumber"
+              type="text"
+              class="form-control"
+              name="employer.phoneNumber"
+              [(ngModel)]="employer.phoneNumber"
+            />
+          </div>
+          <div class="form-group">
+            <label for="address1">Address Line 1</label>
+            <input
+              type="text"
+              id="address1"
+              name="employer.address1"
+              [(ngModel)]="employer.address1"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="address1">Address Line 2</label>
+            <input
+              type="text"
+              id="address1"
+              name="employer.address2"
+              [(ngModel)]="employer.address2"
+              placeholder="Optional Address"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input
+              type="text"
+              id="city"
+              name="employer.city"
+              [(ngModel)]="employer.city"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="state">State</label>
+            <input
+              type="text"
+              id="state"
+              name="employer.state"
+              [(ngModel)]="employer.state"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="zip">Zip Code</label>
+            <input
+              type="number"
+              id="zip"
+              name="employer.zip"
+              [(ngModel)]="employer.zip"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <input
+              type="text"
+              id="country"
+              name="employer.country"
+              [(ngModel)]="employer.country"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <button class="btn btn-lg btn-primary" type="submit" value="submit">
+          Register Company
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
